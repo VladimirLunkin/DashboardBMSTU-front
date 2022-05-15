@@ -1,0 +1,67 @@
+<template>
+  <div class="login-form">
+    <h2 class="login-form__title">Вход</h2>
+    <i-input
+      :icon="require('@/assets/icons/user.svg')"
+      data=""
+      plhl="Имя пользователя"
+      class="login-form__username"
+    />
+    <i-input
+      :icon="require('@/assets/icons/password.svg')"
+      data=""
+      plhl="Пароль"
+      class="login-form__password"
+    />
+    <d-button class="login-form__button">Войти</d-button>
+  </div>
+</template>
+
+<script>
+import IInput from "@/components/common/IInput";
+import DButton from "@/components/common/DButton";
+export default {
+  name: "LoginView",
+  components: {
+    IInput,
+    DButton,
+  },
+};
+</script>
+
+<style scoped lang="scss">
+@import "@/assets/variables.scss";
+
+.login-form {
+  width: 400px;
+  height: 360px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: $color-white;
+  border-radius: $r-3;
+}
+
+.login-form__title {
+  height: 30px;
+  margin: 60px 0;
+  flex: 1;
+}
+
+.login-form__username {
+  margin-bottom: 30px;
+  flex: 1;
+}
+
+.login-form__password {
+  margin-bottom: 30px;
+  flex: 1;
+}
+
+.login-form__button {
+  margin-bottom: 60px;
+  flex: 1;
+}
+</style>

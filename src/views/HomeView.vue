@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.svg" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <i-input data="a" :icon="require('@/assets/icons/user.svg')" plhl="Имя" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import IInput from "@/components/common/IInput";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    IInput,
   },
 };
 </script>
