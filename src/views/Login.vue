@@ -11,6 +11,7 @@
       :icon="require('@/assets/icons/password.svg')"
       data=""
       plhl="Пароль"
+      type="password"
       class="login-form__password"
     />
     <d-button class="login-form__button">Войти</d-button>
@@ -35,6 +36,7 @@ export default {
 .login-form {
   width: 400px;
   height: 360px;
+  margin-bottom: 100px;
 
   display: flex;
   flex-direction: column;
@@ -47,21 +49,17 @@ export default {
 .login-form__title {
   height: 30px;
   margin: 60px 0;
-  flex: 1;
 }
 
 .login-form__username {
   margin-bottom: 30px;
-  flex: 1;
 }
 
 .login-form__password {
   margin-bottom: 30px;
-  flex: 1;
 }
 
 .login-form__button {
   margin-bottom: 60px;
-  flex: 1;
 }
 </style>

@@ -1,9 +1,5 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-    <router-link to="/login">Login</router-link>
-  </nav>
+  <nav-bar></nav-bar>
   <router-view />
 </template>
 
@@ -15,9 +11,12 @@
   text-align: center;
   color: #2c3e50;
 
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 nav {
@@ -33,3 +32,12 @@ nav {
   }
 }
 </style>
+<script>
+import NavBar from "@/components/common/Navbar";
+
+export default {
+  components: {
+    NavBar,
+  },
+};
+</script>

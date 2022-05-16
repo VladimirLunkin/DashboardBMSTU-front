@@ -18,8 +18,14 @@ export default {
   width: 200px;
   height: 30px;
 
+  font-weight: bold;
+
   color: $color-white;
   background: $color-dark-blue;
   border-radius: $r-2;
+}
+
+.d-button:active {
+  background: #214a75;
 }
 </style>

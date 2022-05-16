@@ -1,7 +1,12 @@
 <template>
   <div class="i-input">
     <img :src="icon" alt="icon" class="i-input__icon" />
-    <input v-model="value" :placeholder="plhl" class="i-input__input" />
+    <input
+      v-model="value"
+      :placeholder="plhl"
+      :type="type"
+      class="i-input__input"
+    />
   </div>
 </template>
 
@@ -12,6 +17,7 @@ export default {
     icon: String,
     data: String,
     plhl: String,
+    type: String,
   },
   emits: ["update:data"],
   computed: {
@@ -39,6 +45,10 @@ export default {
 
   border: 1px solid $color-black;
   border-radius: $r-2;
+}
+
+.i-input:focus-within {
+  border: 2px solid $color-dark-blue;
 }
 
 .i-input__icon {
