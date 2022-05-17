@@ -5,4 +5,6 @@ import store from "./store";
 import "./index.css";
 import "./assets/styles.scss";
 
-createApp(App).use(store).use(router).mount("#app");
+import api from "./plugins/api";
+
+createApp(App).use(store).use(router).use(api).mount("#app");

@@ -15,18 +15,18 @@ export default {
   name: "IInput",
   props: {
     icon: String,
-    data: String,
+    modelValue: String,
     plhl: String,
     type: String,
   },
-  emits: ["update:data"],
+  emits: ["update:modelValue"],
   computed: {
     value: {
       get() {
-        return this.data;
+        return this.modelValue;
       },
       set(value) {
-        this.$emit("update:data", value);
+        this.$emit("update:modelValue", value);
       },
     },
   },

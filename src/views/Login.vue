@@ -3,29 +3,57 @@
     <h2 class="login-form__title">Вход</h2>
     <i-input
       :icon="require('@/assets/icons/user.svg')"
-      data=""
+      v-model="username"
       plhl="Имя пользователя"
       class="login-form__username"
     />
     <i-input
       :icon="require('@/assets/icons/password.svg')"
-      data=""
+      v-model="password"
       plhl="Пароль"
       type="password"
       class="login-form__password"
     />
-    <d-button class="login-form__button">Войти</d-button>
+    <d-button @click="Login" class="login-form__button">Войти</d-button>
   </div>
 </template>
 
 <script>
 import IInput from "@/components/common/IInput";
 import DButton from "@/components/common/DButton";
+import router from "@/router";
+
 export default {
   name: "LoginView",
   components: {
     IInput,
     DButton,
+  },
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    Login() {
+      console.log("this.username");
+      console.log(this.username);
+      console.log(this.password);
+
+      this.$api.auth
+        .login({
+          username: this.username,
+          password: this.password,
+        })
+        .then((resp) => {
+          console.log(resp);
+          router.push("/");
+        })
+        .catch((resp) => {
+          console.log(resp);
+        });
+    },
   },
 };
 </script>
