@@ -35,6 +35,10 @@ import DButton from "@/components/common/DButton";
 
 const rePass = new RegExp("[a-zA-Z0-9].{5,20}");
 
+const errRequiredField = "заполните поле";
+const errEasyPass = "слишком простой пароль";
+const errWrongPass = "неверный пароль";
+
 export default {
   name: "UpdatePassword",
   data() {
@@ -49,8 +53,22 @@ export default {
   },
   methods: {
     Save() {
+      if (this.password === "") {
+        this.errPass = errRequiredField;
+        return;
+      }
+
+      if (this.newPassword === "") {
+        this.errNewPass = errRequiredField;
+        return;
+      }
       if (!rePass.test(this.newPassword)) {
-        this.errNewPass = "слишком простой пароль";
+        this.errNewPass = errEasyPass;
+        return;
+      }
+
+      if (this.repPassword === "") {
+        this.errRepPass = errRequiredField;
         return;
       }
       if (this.newPassword !== this.repPassword) {
@@ -64,7 +82,7 @@ export default {
           password: this.newPassword,
         })
         .catch(() => {
-          this.errPass = "неверный пароль";
+          this.errPass = errWrongPass;
         });
 
       return true;

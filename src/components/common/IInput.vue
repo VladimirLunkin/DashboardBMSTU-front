@@ -37,7 +37,6 @@ export default {
       },
     },
     ValidationClass() {
-      console.log(this.errorMsg);
       return this.errorMsg === "" ? "" : "i-input__field_error";
     },
   },
@@ -57,6 +56,7 @@ export default {
 
 .i-input__field {
   width: 200px;
+  height: 30px;
 
   display: flex;
   align-items: center;

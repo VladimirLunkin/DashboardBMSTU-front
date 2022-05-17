@@ -30,6 +30,7 @@ import DButton from "@/components/common/DButton";
 import router from "@/router";
 
 const wrongLorP = "неверный логин или пароль";
+const errRequiredField = "заполните поле";
 
 export default {
   name: "LoginView",
@@ -48,11 +49,11 @@ export default {
   methods: {
     Login() {
       if (this.username === "") {
-        this.errUsername = "заполните поле";
+        this.errUsername = errRequiredField;
         return;
       }
       if (this.password === "") {
-        this.errPassword = "заполните поле";
+        this.errPassword = errRequiredField;
         return;
       }
 
