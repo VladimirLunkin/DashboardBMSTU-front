@@ -72,8 +72,7 @@ export default {
 }
 
 .login-form {
-  width: 400px;
-  height: 360px;
+  width: 360px;
   margin-bottom: 100px;
 
   display: flex;
@@ -89,12 +88,9 @@ export default {
   margin: 60px 0;
 }
 
-.login-form__username {
-  margin-bottom: 30px;
-}
-
+.login-form__username,
 .login-form__password {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .login-form__button {

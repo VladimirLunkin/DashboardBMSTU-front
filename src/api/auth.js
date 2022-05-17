@@ -6,5 +6,8 @@ export default function (instance) {
     logout() {
       return instance.get("user/logout");
     },
+    updatePass(payload) {
+      return instance.put("user/login", payload);
+    },
   };
 }

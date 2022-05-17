@@ -1,12 +1,15 @@
 <template>
   <div class="i-input">
-    <img :src="icon" alt="icon" class="i-input__icon" />
-    <input
-      v-model="value"
-      :placeholder="plhl"
-      :type="type"
-      class="i-input__input"
-    />
+    <div class="i-input__field" :class="ValidationClass">
+      <img :src="icon" alt="icon" class="i-input__icon" />
+      <input
+        v-model="value"
+        :placeholder="plhl"
+        :type="type"
+        class="i-input__input"
+      />
+    </div>
+    <span class="i-input__error-text">{{ errorMsg }}</span>
   </div>
 </template>
 
@@ -18,6 +21,10 @@ export default {
     modelValue: String,
     plhl: String,
     type: String,
+    errorMsg: {
+      type: String,
+      default: "",
+    },
   },
   emits: ["update:modelValue"],
   computed: {
@@ -29,6 +36,10 @@ export default {
         this.$emit("update:modelValue", value);
       },
     },
+    ValidationClass() {
+      console.log(this.errorMsg);
+      return this.errorMsg === "" ? "" : "i-input__field_error";
+    },
   },
 };
 </script>
@@ -37,8 +48,15 @@ export default {
 @import "@/assets/styles.scss";
 
 .i-input {
+  height: 45px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.i-input__field {
   width: 200px;
-  height: 30px;
 
   display: flex;
   align-items: center;
@@ -47,8 +65,12 @@ export default {
   border-radius: $r-2;
 }
 
-.i-input:focus-within {
+.i-input__field:focus-within {
   border: 2px solid $color-dark-blue;
+}
+
+.i-input__field_error {
+  border: 2px solid $color-red;
 }
 
 .i-input__icon {
@@ -60,7 +82,6 @@ export default {
 .i-input__input {
   /* Username */
   flex: 1;
-  height: 30px;
   padding-left: 6px;
 
   /* text */
@@ -79,5 +100,11 @@ export default {
 
 input::placeholder {
   color: $color-gray;
+}
+
+.i-input__error-text {
+  margin-left: 38px;
+  font-size: $fs-6;
+  color: $color-red;
 }
 </style>
