@@ -1,6 +1,6 @@
 <template>
-  <nav-bar></nav-bar>
-  <router-view />
+  <nav-bar v-if="loggedIn" class=""></nav-bar>
+  <router-view class="view" />
 </template>
 
 <style lang="scss">
@@ -19,17 +19,8 @@
   justify-content: center;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.view {
+  flex: 1;
 }
 </style>
 <script>
@@ -38,6 +29,12 @@ import NavBar from "@/components/common/Navbar";
 export default {
   components: {
     NavBar,
+  },
+  computed: {
+    loggedIn() {
+      const path = this.$router.currentRoute.value.path;
+      return path !== "/login";
+    },
   },
 };
 </script>

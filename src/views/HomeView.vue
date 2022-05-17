@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.svg" />
     <i-input data="a" :icon="require('@/assets/icons/user.svg')" plhl="Имя" />
-    <i-button icon="upload">Icon</i-button>
+    <i-button icon="show">Icon</i-button>
   </div>
 </template>
 
