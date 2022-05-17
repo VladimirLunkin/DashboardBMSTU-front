@@ -23,6 +23,8 @@ export default {
   color: $color-white;
   background: $color-dark-blue;
   border-radius: $r-2;
+
+  text-align: center;
 }
 
 .d-button:active {
