@@ -3,16 +3,20 @@
     <div class="login-form">
       <h2 class="login-form__title">Вход</h2>
       <i-input
+        @keyup.enter="Login"
         :icon="require('@/assets/icons/user.svg')"
         v-model="username"
         plhl="Имя пользователя"
+        :error-msg="errUsername"
         class="login-form__username"
       />
       <i-input
+        @keyup.enter="Login"
         :icon="require('@/assets/icons/password.svg')"
         v-model="password"
         plhl="Пароль"
         type="password"
+        :error-msg="errPassword"
         class="login-form__password"
       />
       <d-button @click="Login" class="login-form__button">Войти</d-button>
@@ -25,6 +29,8 @@ import IInput from "@/components/common/IInput";
 import DButton from "@/components/common/DButton";
 import router from "@/router";
 
+const wrongLorP = "неверный логин или пароль";
+
 export default {
   name: "LoginView",
   components: {
@@ -35,13 +41,20 @@ export default {
     return {
       username: "",
       password: "",
+      errUsername: "",
+      errPassword: "",
     };
   },
   methods: {
     Login() {
-      console.log("this.username");
-      console.log(this.username);
-      console.log(this.password);
+      if (this.username === "") {
+        this.errUsername = "заполните поле";
+        return;
+      }
+      if (this.password === "") {
+        this.errPassword = "заполните поле";
+        return;
+      }
 
       this.$api.auth
         .login({
@@ -50,14 +63,31 @@ export default {
         })
         .then((resp) => {
           console.log(resp);
-          router.push("/");
+          router.push("/profile");
         })
-        .catch((resp) => {
+        .catch(() => {
           if (this.username === "admin" && this.password === "admin") {
-            router.push("/");
+            router.push("/profile");
           }
-          console.log(resp);
+          this.errUsername = wrongLorP;
+          this.errPassword = wrongLorP;
         });
+    },
+  },
+  watch: {
+    username() {
+      if (this.errUsername === wrongLorP) {
+        this.errPassword = "";
+      }
+
+      this.errUsername = "";
+    },
+    password() {
+      if (this.errPassword === wrongLorP) {
+        this.errUsername = "";
+      }
+
+      this.errPassword = "";
     },
   },
 };
