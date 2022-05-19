@@ -5,9 +5,7 @@
       <span @click="Home" class="navbar__home-title">DashboardBMSTU</span>
     </div>
     <div class="navbar__user">
-      <span @click="Profile" class="icon-user_circle navbar__user-text"
-        >Лункин&nbsp;В.&nbsp;И.</span
-      >
+      <h3 @click="Profile" class="icon-user_circle n__u-t">{{ username }}</h3>
     </div>
     <img
       @click="Menu"
@@ -33,6 +31,11 @@ export default {
   data() {
     return {
       menu: false,
+      profile: {
+        fName: "Владимир",
+        mName: "Игоревич",
+        lName: "Лункин",
+      },
     };
   },
   methods: {
@@ -50,6 +53,18 @@ export default {
     },
     Logout() {
       router.push("/login");
+    },
+  },
+  computed: {
+    username() {
+      return (
+        this.profile.lName +
+        " " +
+        this.profile.fName[0] +
+        ". " +
+        this.profile.mName[0] +
+        "."
+      );
     },
   },
   mounted() {
@@ -101,11 +116,6 @@ export default {
   color: #b9fffb;
 }
 
-.icon-user_circle:before {
-  font-size: 24px;
-  margin-right: 6px;
-}
-
 .navbar__user {
   flex: 0;
   padding: 0 12px;
@@ -116,10 +126,17 @@ export default {
   cursor: pointer;
 }
 
-.navbar__user-text {
+.icon-user_circle:before {
+  //font-size: 2px;
+  margin-top: 3px;
+  margin-right: 6px;
+}
+
+.n__u-t {
   //font-weight: 700;
   //font-size: 16px;
   //line-height: 19px;
+  white-space: nowrap;
 }
 
 .navbar__user:hover,
