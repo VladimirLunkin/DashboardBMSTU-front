@@ -18,6 +18,7 @@
         type="password"
         :error-msg="errPassword"
         class="login-form__password"
+        ref="passs"
       />
       <d-button @click="LoginSubmit" class="login-form__button">Войти</d-button>
     </div>
@@ -68,10 +69,10 @@ export default {
           throw "wrongLorP";
         })
         .then(() => {
-          router.push("/profile");
+          router.push({ name: "profile" });
         })
         .catch((err) => {
-          if (err != wrongLorP) {
+          if (err !== wrongLorP) {
             console.log(err);
           }
         });

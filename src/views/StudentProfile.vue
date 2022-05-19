@@ -22,18 +22,21 @@
 
 <script>
 import UpdatePassword from "@/components/UpdatePassword";
+import { mapGetters } from "vuex";
+
 export default {
   name: "StudentProfileView",
-  data() {
-    return {
-      profile: {
-        Имя: "Лункин Владимир Игоревич",
-        Курс: 4,
-        Группа: "ИУ5-85Б",
-      },
-    };
-  },
   components: { UpdatePassword },
+  computed: {
+    ...mapGetters(["fullName", "getCourse", "getGroupCode"]),
+    profile() {
+      return {
+        Имя: this.fullName,
+        Курс: this.getCourse,
+        Группа: this.getGroupCode,
+      };
+    },
+  },
 };
 </script>
 

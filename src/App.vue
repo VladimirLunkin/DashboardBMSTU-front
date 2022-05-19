@@ -1,5 +1,5 @@
 <template>
-  <nav-bar v-if="loggedIn" class=""></nav-bar>
+  <nav-bar v-if="getLoggedIn" class=""></nav-bar>
   <div class="my-container">
     <router-view />
   </div>
@@ -7,16 +7,18 @@
 
 <script>
 import NavBar from "@/components/Navbar";
+import { mapGetters } from "vuex";
+import router from "@/router";
 
 export default {
   components: {
     NavBar,
   },
-  computed: {
-    loggedIn() {
-      const path = this.$router.currentRoute.value.path;
-      return path !== "/login";
-    },
+  computed: mapGetters(["getLoggedIn"]),
+  created() {
+    if (!this.$store.loggedIn) {
+      router.push({ name: "login" });
+    }
   },
 };
 </script>

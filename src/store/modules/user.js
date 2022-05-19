@@ -5,7 +5,11 @@ export default {
     loggedIn: false,
     type: "",
   },
-  getters: {},
+  getters: {
+    getLoggedIn(state) {
+      return state.loggedIn;
+    },
+  },
   mutations: {
     login(state) {
       state.loggedIn = true;
@@ -36,6 +40,7 @@ export default {
           if (username !== "admin") {
             throw "resp";
           }
+          ctx.commit("login");
         });
     },
   },
