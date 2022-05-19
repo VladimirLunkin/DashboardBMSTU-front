@@ -7,4 +7,4 @@ import "./assets/styles.scss";
 
 import api from "./plugins/api";
 
-createApp(App).use(store).use(router).use(api).mount("#app");
+createApp(App).use(api).use(store).use(router).mount("#app");

@@ -3,7 +3,7 @@
     <div class="login-form">
       <h2 class="login-form__title">Вход</h2>
       <i-input
-        @keyup.enter="Login"
+        @keyup.enter="LoginSubmit"
         :icon="require('@/assets/icons/user.svg')"
         v-model.trim="username"
         plhl="Имя пользователя"
@@ -11,7 +11,7 @@
         class="login-form__username"
       />
       <i-input
-        @keyup.enter="Login"
+        @keyup.enter="LoginSubmit"
         :icon="require('@/assets/icons/password.svg')"
         v-model="password"
         plhl="Пароль"
@@ -19,7 +19,7 @@
         :error-msg="errPassword"
         class="login-form__password"
       />
-      <d-button @click="Login" class="login-form__button">Войти</d-button>
+      <d-button @click="LoginSubmit" class="login-form__button">Войти</d-button>
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
     };
   },
   methods: {
-    Login() {
+    LoginSubmit() {
       if (this.username === "") {
         this.errUsername = errRequiredField;
         return;
@@ -57,21 +57,23 @@ export default {
         return;
       }
 
-      this.$api.auth
-        .login({
+      this.$store
+        .dispatch("Login", {
           username: this.username,
           password: this.password,
         })
-        .then((resp) => {
-          console.log(resp);
-          router.push("/profile");
-        })
         .catch(() => {
-          if (this.username === "admin" && this.password === "admin") {
-            router.push("/profile");
-          }
           this.errUsername = wrongLorP;
           this.errPassword = wrongLorP;
+          throw "wrongLorP";
+        })
+        .then(() => {
+          router.push("/profile");
+        })
+        .catch((err) => {
+          if (err != wrongLorP) {
+            console.log(err);
+          }
         });
     },
   },
@@ -80,14 +82,12 @@ export default {
       if (this.errUsername === wrongLorP) {
         this.errPassword = "";
       }
-
       this.errUsername = "";
     },
     password() {
       if (this.errPassword === wrongLorP) {
         this.errUsername = "";
       }
-
       this.errPassword = "";
     },
   },

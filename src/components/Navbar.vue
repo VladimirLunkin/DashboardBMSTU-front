@@ -5,7 +5,7 @@
       <span @click="Home" class="navbar__home-title">DashboardBMSTU</span>
     </div>
     <div class="navbar__user">
-      <h3 @click="Profile" class="icon-user_circle n__u-t">{{ username }}</h3>
+      <h3 @click="Profile" class="icon-user_circle n__u-t">{{ shortName }}</h3>
     </div>
     <img
       @click="Menu"
@@ -18,24 +18,20 @@
       <span @click="Profile" class="icon-settings navbar__menu-item">
         Настройки
       </span>
-      <span @click="Logout" class="icon-logout navbar__menu-item"> Выход </span>
+      <span @click="Logout" class="icon-logout navbar__menu-item"> Выйти</span>
     </div>
   </div>
 </template>
 
 <script>
 import router from "@/router";
+import { mapGetters } from "vuex";
 
 export default {
   name: "NavBar",
   data() {
     return {
       menu: false,
-      profile: {
-        fName: "Владимир",
-        mName: "Игоревич",
-        lName: "Лункин",
-      },
     };
   },
   methods: {
@@ -48,7 +44,7 @@ export default {
     Menu() {
       this.menu = !this.menu;
     },
-    MenuClose() {
+    CloseMenu() {
       this.menu = false;
     },
     Logout() {
@@ -56,22 +52,13 @@ export default {
     },
   },
   computed: {
-    username() {
-      return (
-        this.profile.lName +
-        " " +
-        this.profile.fName[0] +
-        ". " +
-        this.profile.mName[0] +
-        "."
-      );
-    },
+    ...mapGetters(["shortName"]),
   },
   mounted() {
     let vm = this;
     document.addEventListener("click", function (e) {
       if (e.target !== vm.$refs["navbar-menu"]) {
-        vm.MenuClose();
+        vm.CloseMenu();
       }
     });
   },
