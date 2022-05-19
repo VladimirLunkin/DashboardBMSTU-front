@@ -19,13 +19,21 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  vertical-align: middle;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-x:before {
+  content: "\e915";
+}
+.icon-settings:before {
+  content: "\e916";
+}
+.icon-logout:before {
+  content: "\e917";
+}
 .icon-calendar_done:before {
   content: "\e900";
 }

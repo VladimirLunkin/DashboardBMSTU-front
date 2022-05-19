@@ -5,7 +5,7 @@
       <i-input
         @keyup.enter="Login"
         :icon="require('@/assets/icons/user.svg')"
-        v-model="username"
+        v-model.trim="username"
         plhl="Имя пользователя"
         :error-msg="errUsername"
         class="login-form__username"

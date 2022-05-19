@@ -1,16 +1,27 @@
 <template>
   <div class="navbar">
     <img :src="require('@/assets/logo.svg')" class="navbar__logo" />
-    <span @click="Home" class="navbar__title">DashboardBMSTU</span>
-    <span @click="Profile" class="icon-user_circle navbar__user"
-      >Лункин&nbsp;В.&nbsp;И.</span
-    >
+    <div class="navbar__home">
+      <span @click="Home" class="navbar__home-title">DashboardBMSTU</span>
+    </div>
+    <div class="navbar__user">
+      <span @click="Profile" class="icon-user_circle navbar__user-text"
+        >Лункин&nbsp;В.&nbsp;И.</span
+      >
+    </div>
     <img
-      @click="Logout"
+      @click="Menu"
       :src="require('@/assets/icons/menu.svg')"
-      class="navbar__menu"
+      class="navbar__icon-menu"
       alt=""
+      ref="navbar-menu"
     />
+    <div class="navbar__menu" v-show="menu">
+      <span @click="Profile" class="icon-settings navbar__menu-item">
+        Настройки
+      </span>
+      <span @click="Logout" class="icon-logout navbar__menu-item"> Выход </span>
+    </div>
   </div>
 </template>
 
@@ -19,6 +30,11 @@ import router from "@/router";
 
 export default {
   name: "NavBar",
+  data() {
+    return {
+      menu: false,
+    };
+  },
   methods: {
     Home() {
       router.push("/");
@@ -26,9 +42,23 @@ export default {
     Profile() {
       router.push("/profile");
     },
+    Menu() {
+      this.menu = !this.menu;
+    },
+    MenuClose() {
+      this.menu = false;
+    },
     Logout() {
       router.push("/login");
     },
+  },
+  mounted() {
+    let vm = this;
+    document.addEventListener("click", function (e) {
+      if (e.target !== vm.$refs["navbar-menu"]) {
+        vm.MenuClose();
+      }
+    });
   },
 };
 </script>
@@ -45,7 +75,7 @@ export default {
 
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
 }
 
 .navbar__logo {
@@ -53,14 +83,22 @@ export default {
   margin: 0 40px;
 }
 
-.navbar__title {
+.navbar__home {
   flex: 1;
-  text-align: start;
 
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__home-title {
+  font-weight: 600;
   font-size: 24px;
 
   cursor: pointer;
+}
+
+.navbar__home-title:hover {
+  color: #b9fffb;
 }
 
 .icon-user_circle:before {
@@ -70,19 +108,64 @@ export default {
 
 .navbar__user {
   flex: 0;
+  padding: 0 12px;
 
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.navbar__user-text {
+  //font-weight: 700;
+  //font-size: 16px;
+  //line-height: 19px;
+}
+
+.navbar__user:hover,
+.navbar__icon-menu:hover {
+  background: rgba(236, 252, 252, 0.1);
+}
+
+.navbar__icon-menu {
+  flex: 0;
+  font-size: xx-large;
+  padding: 0 24px;
 
   cursor: pointer;
 }
 
 .navbar__menu {
-  flex: 0;
-  font-size: xx-large;
-  padding: 0 30px;
+  position: absolute;
+  top: 50px;
+  right: 24px;
+  padding: 12px;
+
+  background: $color-white;
+  border: 1px solid $color-gray;
+  border-radius: $r-2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.navbar__menu-item {
+  color: $color-black;
+  padding: 6px;
 
   cursor: pointer;
+  text-align: start;
+}
+
+.navbar__menu-item:hover {
+  background: $background;
+  border-radius: $r-2;
+  text-decoration: underline;
+}
+
+.icon-logout:before,
+.icon-settings:before {
+  margin-right: 3px;
 }
 </style>
