@@ -82,7 +82,7 @@ export default {
 .i-input__input {
   /* Username */
   flex: 1;
-  padding-left: 6px;
+  padding: 0 6px;
 
   /* text */
   font-style: normal;
