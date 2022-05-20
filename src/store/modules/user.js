@@ -25,7 +25,7 @@ export default {
     async Login(ctx, { username, password }) {
       return api.auth
         .login({
-          username,
+          email: username,
           password,
         })
         .then((resp) => {
