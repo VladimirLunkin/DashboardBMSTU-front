@@ -33,3 +33,12 @@ rebuild:
 	@make clean
 	@make build
 	@make run
+
+
+## local-build: Rebuild and restart
+local-build:
+	@#npm run build
+	@#cp -r dist/ ../dashb/
+	@cd ../dashb
+	@git commit -a -m "make: new build"
+	@git push
