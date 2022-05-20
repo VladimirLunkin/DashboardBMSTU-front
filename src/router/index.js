@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login";
-import StudentProfile from "@/views/StudentProfile";
+import Profile from "@/views/Profile";
 
 const routes = [
   {
@@ -16,7 +16,7 @@ const routes = [
   {
     path: "/profile",
     name: "profile",
-    component: StudentProfile,
+    component: Profile,
   },
 ];
 

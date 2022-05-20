@@ -18,6 +18,11 @@ export default {
   created() {
     if (!this.$store.loggedIn) {
       router.push({ name: "login" });
+      return;
+    }
+    if (!this.$store.pass_status) {
+      router.push({ name: "profile" });
+      return;
     }
   },
 };

@@ -3,11 +3,15 @@ import api from "@/api/index";
 export default {
   state: {
     loggedIn: false,
-    type: "",
+    role: "",
+    pass_status: "",
   },
   getters: {
     getLoggedIn(state) {
       return state.loggedIn;
+    },
+    getRole(state) {
+      return state.role;
     },
   },
   mutations: {
@@ -17,8 +21,11 @@ export default {
     logout(state) {
       state.loggedIn = false;
     },
-    setType(state, type) {
-      state.type = type;
+    setRole(state, role) {
+      state.role = role;
+    },
+    setPassStatus(state, st) {
+      state.pass_status = st;
     },
   },
   actions: {
@@ -34,13 +41,16 @@ export default {
           }
 
           ctx.commit("login");
-          ctx.commit("setType", resp.body.type);
+          ctx.commit("setRole", resp.body.role);
+          ctx.commit("setPassStatus", resp.body.pass_status);
         })
         .catch(() => {
           if (username !== "admin") {
             throw "resp";
           }
           ctx.commit("login");
+          ctx.commit("setRole", "student");
+          ctx.commit("setPassStatus", false);
         });
     },
   },
