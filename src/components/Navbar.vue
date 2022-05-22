@@ -48,8 +48,16 @@ export default {
       this.menu = false;
     },
     Logout() {
-      this.$store.commit("logout");
-      router.push("/login");
+      this.$store
+        .dispatch("Logout")
+        .then(() => {
+          router.push("/login");
+        })
+        .catch((resp) => {
+          console.log("logout");
+          console.log(resp);
+          router.push("/login");
+        });
     },
   },
   computed: {

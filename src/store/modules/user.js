@@ -22,7 +22,6 @@ export default {
       state.loggedIn = false;
       state.pass_status = "";
       state.role = "";
-      // очистка всех данных
     },
     setRole(state, role) {
       state.role = role;
@@ -46,6 +45,15 @@ export default {
           ctx.commit("login");
           ctx.commit("setRole", resp.data.is_super ? "supervisor" : "student");
           ctx.commit("setPassStatus", resp.data.pass_status);
+          ctx.commit("setStudent", {
+            id: resp.data.id,
+            fName: resp.data.fName,
+            mName: resp.data.mName,
+            lName: resp.data.lName,
+            username: resp.data.email,
+            groupID: resp.data.groupID,
+            groupCode: resp.data.groupCode,
+          });
         })
         .catch(() => {
           if (username !== "admin") {
@@ -55,6 +63,16 @@ export default {
           ctx.commit("setRole", "student");
           ctx.commit("setPassStatus", false);
         });
+    },
+    async Logout(ctx) {
+      return api.auth.logout().then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+
+        ctx.commit("logout");
+        ctx.commit("clearStudent");
+      });
     },
   },
 };

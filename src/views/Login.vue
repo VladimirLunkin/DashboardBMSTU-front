@@ -63,10 +63,13 @@ export default {
           username: this.username,
           password: this.password,
         })
-        .catch(() => {
-          this.errUsername = wrongLorP;
-          this.errPassword = wrongLorP;
-          throw "wrongLorP";
+        .catch((resp) => {
+          if (resp.status === 401) {
+            this.errUsername = wrongLorP;
+            this.errPassword = wrongLorP;
+            throw "wrongLorP";
+          }
+          throw resp;
         })
         .then(() => {
           router.push({ name: "profile" });

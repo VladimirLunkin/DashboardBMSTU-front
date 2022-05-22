@@ -1,3 +1,5 @@
+import {stat} from "@babel/core/lib/gensync-utils/fs";
+
 export default {
   state: {
     id: 0,
@@ -44,6 +46,26 @@ export default {
       return state.groupCode;
     },
   },
-  mutations: {},
+  mutations: {
+    setStudent(state, student) {
+      state.id = student.id;
+      state.fName = student.fName;
+      state.mName = student.mName;
+      state.lName = student.lName;
+      state.username = student.username;
+      state.groupID = student.groupID;
+      state.groupCode = student.groupCode;
+    },
+    clearStudent(state) {
+      state.id = 0;
+      state.fName = "";
+      state.mName = "";
+      state.lName = "";
+      state.username = "";
+      state.groupID = "";
+      state.groupCode = "";
+      state.courses = [];
+    },
+  },
   actions: {},
 };
