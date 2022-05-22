@@ -36,7 +36,12 @@ export default {
   },
   methods: {
     Home() {
-      router.push("/");
+      if (this.getRole === "supervisor") {
+        router.push({ name: "control" });
+      }
+      if (this.getRole === "student") {
+        router.push({ name: "progress" });
+      }
     },
     Profile() {
       router.push("/profile");
@@ -61,7 +66,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["shortName"]),
+    ...mapGetters(["shortName", "getRole"]),
   },
   mounted() {
     let vm = this;
@@ -128,6 +133,7 @@ export default {
 }
 
 .n__u-t {
+  color: $color-white;
   white-space: nowrap;
 }
 

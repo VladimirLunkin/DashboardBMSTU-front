@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login";
 import Profile from "@/views/Profile";
 import Progress from "@/views/Progress";
+import ProgressControl from "@/views/ProgressControl";
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     path: "/progress",
     name: "progress",
     component: Progress,
+  },
+  {
+    path: "/control",
+    name: "control",
+    component: ProgressControl,
   },
 ];
 

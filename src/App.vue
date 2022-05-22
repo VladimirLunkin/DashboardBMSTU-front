@@ -16,29 +16,26 @@ export default {
   },
   computed: mapGetters(["getLoggedIn"]),
   created() {
-    router.push({ name: "progress" });
-    return;
-    // if (!this.$store.loggedIn) {
-    //   this.$store
-    //     .dispatch("GetUser")
-    //     .then(() => {
-    //       if (this.getPassStatus) {
-    //         router.push({ name: "home" });
-    //       } else {
-    //         router.push({ name: "profile" });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       router.push({ name: "login" });
-    //     });
-    //
-    //   return;
-    // }
-    // if (!this.$store.pass_status) {
-    //   router.push({ name: "profile" });
-    //   return;
-    // }
+    if (!this.$store.loggedIn) {
+      this.$store
+        .dispatch("GetUser")
+        .then(() => {
+          if (!this.getPassStatus) {
+            router.push({ name: "profile" });
+            return;
+          }
+          if (this.getRole === "supervisor") {
+            router.push({ name: "control" });
+          }
+          if (this.getRole === "student") {
+            router.push({ name: "progress" });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          router.push({ name: "login" });
+        });
+    }
   },
 };
 </script>

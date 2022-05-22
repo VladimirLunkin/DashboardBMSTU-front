@@ -31,7 +31,6 @@ import EventInfo from "@/components/EventInfo";
 
 export default {
   name: "ProgressView",
-  components: { EventInfo },
   data() {
     return {
       eventInfo: {
@@ -41,6 +40,7 @@ export default {
       },
     };
   },
+  components: { EventInfo },
   computed: {
     ...mapGetters(["getTable", "getMaxEvents"]),
   },
