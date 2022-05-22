@@ -1,23 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.svg" />
-    <i-input data="a" :icon="require('@/assets/icons/user.svg')" plhl="Имя" />
-    <i-button icon="show">Icon</i-button>
-    <update-password></update-password>
+    <event-info :event-info="eventInfo"></event-info>
   </div>
 </template>
 
 <script>
-import IInput from "@/components/common/IInput";
-import IButton from "@/components/common/IButton";
-import UpdatePassword from "@/components/UpdatePassword";
+import EventInfo from "@/components/EventInfo";
 
 export default {
   name: "HomeView",
+  data() {
+    return {
+      eventInfo: {
+        owner: "Эксплуатация АСОИУ",
+        name: "Лаб 3",
+      },
+    };
+  },
   components: {
-    UpdatePassword,
-    IButton,
-    IInput,
+    EventInfo,
   },
 };
 </script>

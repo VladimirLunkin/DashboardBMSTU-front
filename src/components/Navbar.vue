@@ -123,15 +123,11 @@ export default {
 }
 
 .icon-user_circle:before {
-  //font-size: 2px;
   margin-top: 3px;
   margin-right: 6px;
 }
 
 .n__u-t {
-  //font-weight: 700;
-  //font-size: 16px;
-  //line-height: 19px;
   white-space: nowrap;
 }
 

@@ -32,6 +32,7 @@
 <script>
 import IInput from "@/components/common/IInput";
 import DButton from "@/components/common/DButton";
+import router from "@/router";
 
 const rePass = new RegExp("[a-zA-Z0-9].{5,20}");
 
@@ -79,7 +80,15 @@ export default {
 
       this.$api.auth
         .updatePass({
-          password: this.newPassword,
+          new_pass: this.newPassword,
+          old_pass: this.password,
+        })
+        .then((resp) => {
+          if (resp.status !== 200) {
+            throw resp;
+          }
+
+          router.push({ name: "home" });
         })
         .catch(() => {
           this.errPass = errWrongPass;

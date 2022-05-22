@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login";
 import Profile from "@/views/Profile";
+import Progress from "@/views/Progress";
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+  },
+  {
+    path: "/progress",
+    name: "progress",
+    component: Progress,
   },
 ];
 
