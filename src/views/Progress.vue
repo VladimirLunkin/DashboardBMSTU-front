@@ -1,6 +1,6 @@
 <template>
   <div>
-    <event-info v-model="isModalVisible" :event-info="eventInfo" />
+    <event-info v-model="eventInfo" />
     <table>
       <caption>
         <h1>8 семестр</h1>
@@ -34,10 +34,10 @@ export default {
   components: { EventInfo },
   data() {
     return {
-      isModalVisible: false,
       eventInfo: {
-        owner: "",
-        eventName: "",
+        isModalVisible: false,
+        courseId: 0,
+        eventId: 0,
       },
     };
   },
@@ -52,9 +52,8 @@ export default {
       return require(`@/assets/icons/status_${status}.svg`);
     },
     OpenEventInfo(courseId, eventId) {
-      this.isModalVisible = true;
-      this.eventInfo = this.getTable[courseId].events[eventId];
-      this.eventInfo.owner = this.getTable[courseId].courseName;
+      this.eventInfo = { courseId, eventId };
+      this.eventInfo.isModalVisible = true;
     },
   },
 };

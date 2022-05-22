@@ -1,15 +1,15 @@
 <template>
-  <div v-if="isModalVisible" class="modal" ref="modal">
+  <div v-if="eventInfo.isModalVisible" class="modal" ref="modal">
     <div class="event">
       <div class="modal__header">
         <div class="modal__header-title">
-          <h3 class="">{{ eventInfo.owner }}</h3>
+          <h3 class="">{{ courseName }}</h3>
           <img
             :src="require('@/assets/icons/caret_right.svg')"
             class=""
             alt=""
           />
-          <h3 class="">{{ eventInfo.eventName }}</h3>
+          <h3 class="">{{ eventName }}</h3>
         </div>
         <img
           @click="Close"
@@ -18,35 +18,175 @@
           alt=""
         />
       </div>
-      <div>Body Body Body</div>
+      <div class="event__body">
+        <table class="event__table">
+          <tr v-for="(value, name) in eventTable" :key="name">
+            <td>{{ value.name }}</td>
+            <td class="event__cell">
+              <img :src="value.icon" class="event__cell-icon" />
+              <span>{{ value.value }}</span>
+            </td>
+          </tr>
+        </table>
+        <div class="event__description">
+          <h4>Описание</h4>
+          <div>{{ event.description }}</div>
+        </div>
+        <div v-if="isUploadFiles" class="event__upload-files">
+          <h4>Загруженные файлы</h4>
+          <div
+            v-for="(file, index) in event.files"
+            class="event__files-list"
+            :key="index"
+          >
+            <span>{{ (index + 1).toString() + "." }}</span>
+            <a @click="OpenFile(index)" class="event__file">{{ file }}</a>
+            <img
+              @click="DeleteFile(index)"
+              :src="require('@/assets/icons/delete.svg')"
+              class="event__delete-icon"
+              alt=""
+            />
+          </div>
+        </div>
+        <div v-if="isComment" class="event__description">
+          <h4>Комментарий</h4>
+          <div>{{ event.comment }}</div>
+        </div>
+        <i-button
+          v-if="isUploadButton"
+          @click="UploadFiles"
+          icon="upload"
+          class="event__upload-button"
+          >Загрузить файл</i-button
+        >
+        <d-button
+          v-if="isSubmitButton"
+          @click="SubmitFiles"
+          class="event__submit-button"
+          >Отправить на проверку</d-button
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import IButton from "@/components/common/IButton";
+import DButton from "@/components/common/DButton";
+
 export default {
   name: "EventInfo",
+  components: { DButton, IButton },
   props: {
-    modelValue: Boolean,
-    eventInfo: {
-      owner: String,
-      eventName: String,
-    },
+    modelValue: Object,
+  },
+  data() {
+    return {
+      event: {},
+      newFiles: false,
+    };
   },
   emits: ["update:modelValue"],
   computed: {
-    isModalVisible: {
+    ...mapGetters(["getCourseName", "getEventName", "getEvent"]),
+    eventInfo: {
       get() {
         return this.modelValue;
       },
-      set(isModalVisible) {
-        this.$emit("update:modelValue", isModalVisible);
+      set(eventInfo) {
+        this.$emit("update:modelValue", eventInfo);
       },
+    },
+    getEventStatus() {
+      const statusName = [
+        "Не выдано",
+        "Выдано",
+        "На проверке",
+        "Требуются правки",
+        "Выполнено",
+        "Защищено",
+        "Просрочено",
+      ];
+      return statusName[this.event.status];
+    },
+    getIconStatus() {
+      return require("@/assets/icons/status_" + this.event.status + ".svg");
+    },
+    getDeadlineDays() {
+      return 5; // TODO
+    },
+    eventTable() {
+      return [
+        {
+          name: "Статус:",
+          icon: this.getIconStatus,
+          value: this.getEventStatus,
+        },
+        {
+          name: "Выдано в работу:",
+          icon: require("@/assets/icons/calendar.svg"),
+          value: this.event.eventDate,
+        },
+        {
+          name: "Дедлайн:",
+          icon: require("@/assets/icons/calendar_event.svg"),
+          value: this.event.deadline,
+        },
+        {
+          name: "Дней до дедлайна:",
+          icon: require("@/assets/icons/hourglass_empty.svg"),
+          value: this.getDeadlineDays,
+        },
+      ];
+    },
+    courseName() {
+      return this.getCourseName(this.eventInfo.courseId);
+    },
+    eventName() {
+      return this.event.eventName;
+    },
+    isUploadFiles() {
+      if (!this.event.files || !this.event.files.length) {
+        return false;
+      }
+      return this.event.files.length > 0;
+    },
+    isComment() {
+      return this.event.comment && this.event.comment.length > 0;
+    },
+    isUploadButton() {
+      const s = this.event.status;
+      return (0 < s && s < 4) || s === 6;
+    },
+    isSubmitButton() {
+      return this.newFiles;
     },
   },
   methods: {
     Close() {
-      this.isModalVisible = false;
+      this.eventInfo.isModalVisible = false;
+    },
+    OpenFile(index) {
+      console.log("open file: ", this.event.files[index]);
+    },
+    DeleteFile(index) {
+      console.log("delete file: ", this.event.files[index]);
+    },
+    UploadFiles() {
+      this.newFiles = true;
+    },
+    SubmitFiles() {
+      this.newFiles = false;
+    },
+  },
+  watch: {
+    eventInfo() {
+      this.event = this.getEvent(
+        this.eventInfo.courseId,
+        this.eventInfo.eventId
+      );
     },
   },
   mounted() {
@@ -98,5 +238,53 @@ export default {
 
 .modal__close-icon {
   cursor: pointer;
+}
+
+.event__table,
+.event__description,
+.event__upload-files {
+  margin: 20px 12px;
+  text-align: left;
+}
+
+td {
+  padding: 6px 12px 6px 0;
+}
+
+.event__cell {
+  display: flex;
+  flex-direction: row;
+}
+
+.event__cell-icon,
+.event__delete-icon {
+  width: 18px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.event__upload-button,
+.event__submit-button {
+  margin-bottom: 20px;
+}
+
+.event__submit-button {
+  background: $color-green;
+  width: 230px;
+}
+
+.event__submit-button:active {
+  background: $color-light-green;
+}
+
+.event__files-list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 6px;
+}
+
+.event__file {
+  margin-left: 6px;
+  flex: 1;
 }
 </style>

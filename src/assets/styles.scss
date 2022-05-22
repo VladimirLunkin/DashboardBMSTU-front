@@ -27,3 +27,26 @@ h3 {
 
   color: $color-black;
 }
+
+h4 {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 16px;
+
+  color: $color-black;
+}
+
+a {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+
+  color: $color-blue;
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+a:hover {
+  color: $color-dark-blue;
+}
