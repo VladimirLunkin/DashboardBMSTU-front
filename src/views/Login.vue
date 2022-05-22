@@ -29,6 +29,7 @@
 import IInput from "@/components/common/IInput";
 import DButton from "@/components/common/DButton";
 import router from "@/router";
+import { mapGetters } from "vuex";
 
 const wrongLorP = "неверный логин или пароль";
 const errRequiredField = "заполните поле";
@@ -72,7 +73,11 @@ export default {
           throw resp;
         })
         .then(() => {
-          router.push({ name: "profile" });
+          if (this.getPassStatus) {
+            router.push({ name: "home" });
+          } else {
+            router.push({ name: "profile" });
+          }
         })
         .catch((err) => {
           if (err !== wrongLorP) {
@@ -80,6 +85,9 @@ export default {
           }
         });
     },
+  },
+  computed: {
+    ...mapGetters(["getPassStatus"]),
   },
   watch: {
     username() {

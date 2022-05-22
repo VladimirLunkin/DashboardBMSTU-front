@@ -1,5 +1,3 @@
-import {stat} from "@babel/core/lib/gensync-utils/fs";
-
 export default {
   state: {
     id: 0,
@@ -52,9 +50,9 @@ export default {
       state.fName = student.fName;
       state.mName = student.mName;
       state.lName = student.lName;
-      state.username = student.username;
-      state.groupID = student.groupID;
-      state.groupCode = student.groupCode;
+      // state.username = student.username;
+      // state.groupID = student.groupID;
+      // state.groupCode = student.groupCode;
     },
     clearStudent(state) {
       state.id = 0;

@@ -13,5 +13,8 @@ export default function (instance) {
     updatePass(payload) {
       return instance.put("user/login", payload);
     },
+    getUser() {
+      return instance.get("user");
+    },
   };
 }
