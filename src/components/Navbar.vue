@@ -48,6 +48,7 @@ export default {
       this.menu = false;
     },
     Logout() {
+      this.$store.commit("logout");
       router.push("/login");
     },
   },

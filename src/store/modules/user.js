@@ -20,6 +20,9 @@ export default {
     },
     logout(state) {
       state.loggedIn = false;
+      state.pass_status = "";
+      state.role = "";
+      // очистка всех данных
     },
     setRole(state, role) {
       state.role = role;
@@ -41,8 +44,8 @@ export default {
           }
 
           ctx.commit("login");
-          ctx.commit("setRole", resp.body.role);
-          ctx.commit("setPassStatus", resp.body.pass_status);
+          ctx.commit("setRole", resp.data.is_super ? "supervisor" : "student");
+          ctx.commit("setPassStatus", resp.data.pass_status);
         })
         .catch(() => {
           if (username !== "admin") {
