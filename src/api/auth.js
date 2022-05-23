@@ -8,12 +8,15 @@ export default function (instance) {
       return instance.post("user/login", payload);
     },
     logout() {
+      setCSRF();
       return instance.get("user/logout");
     },
     updatePass(payload) {
+      setCSRF();
       return instance.put("user/login", payload);
     },
     getUser() {
+      setCSRF();
       return instance.get("user");
     },
   };
