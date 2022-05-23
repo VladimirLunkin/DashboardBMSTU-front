@@ -1,12 +1,20 @@
 import { createStore } from "vuex";
 import user from "@/store/modules/user";
-import student from "@/store/modules/student";
-import courses from "@/store/modules/courses";
+import student from "@/store/modules/student/student";
+import studentCourses from "@/store/modules/student/courses";
+import Supervisor from "@/store/modules/supervisor/supervisor";
+import SupervisorCourses from "@/store/modules/supervisor/courses";
+import SupervisorEvents from "@/store/modules/supervisor/events";
+import SupervisorGroups from "@/store/modules/supervisor/groups";
 
 export default createStore({
   modules: {
     user,
     student,
-    courses,
+    studentCourses,
+    Supervisor,
+    SupervisorCourses,
+    SupervisorEvents,
+    SupervisorGroups,
   },
 });
