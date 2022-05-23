@@ -1,3 +1,5 @@
+import api from "@/api";
+
 export default {
   state: {
     id: 0,
@@ -38,5 +40,19 @@ export default {
       state.groupCode = "";
     },
   },
-  actions: {},
+  actions: {
+    async UpdateStudent(ctx) {
+      return api.student.getStudent().then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+
+        ctx.commit("setStudent", {
+          id: resp.data.id,
+          groupID: resp.data.group.id,
+          groupCode: resp.data.group.group_code,
+        });
+      });
+    },
+  },
 };

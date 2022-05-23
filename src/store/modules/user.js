@@ -52,7 +52,7 @@ export default {
       state.mName = user.middleName;
       state.lName = user.lastname;
       state.username = user.email;
-      state.role = user.is_super ? "supervisor" : "student";
+      state.role = user.is_super ? "Supervisor" : "Student";
       state.pass_status = user.pass_status;
     },
   },

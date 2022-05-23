@@ -20,16 +20,18 @@ export default {
       this.$store
         .dispatch("GetUser")
         .then(() => {
-          if (!this.getPassStatus) {
-            router.push({ name: "profile" });
-            return;
-          }
-          if (this.getRole === "supervisor") {
-            router.push({ name: "control" });
-          }
-          if (this.getRole === "student") {
-            router.push({ name: "progress" });
-          }
+          this.$store.dispatch("Update" + this.getRole).then(() => {
+            if (!this.getPassStatus) {
+              router.push({ name: "profile" });
+              return;
+            }
+            if (this.getRole === "Supervisor") {
+              router.push({ name: "control" });
+            }
+            if (this.getRole === "Student") {
+              router.push({ name: "progress" });
+            }
+          });
         })
         .catch(() => {
           router.push({ name: "login" });

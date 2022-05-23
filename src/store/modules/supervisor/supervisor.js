@@ -1,33 +1,29 @@
+import api from "@/api";
+
 export default {
   state: {
     id: 10,
   },
-  getters: {
-    fullNameSupervisor(state) {
-      return state.fName + " " + state.mName + " " + state.lName;
-    },
-    shortNameSupervisor(state) {
-      if (
-        state.fName.length < 1 ||
-        state.mName.length < 1 ||
-        state.lName.length < 1
-      ) {
-        return "";
-      }
-      return state.lName + " " + state.fName[0] + ". " + state.mName[0] + ".";
-    },
-  },
+  getters: {},
   mutations: {
     setSupervisor(state, supervisor) {
       state.id = supervisor.id;
-      state.fName = supervisor.fName;
-      state.mName = supervisor.mName;
-      state.lName = supervisor.lName;
-      state.username = supervisor.username;
     },
     clearSupervisor(state) {
       state.id = 0;
     },
   },
-  actions: {},
+  actions: {
+    async UpdateSupervisor(ctx) {
+      return api.supervisor.getSupervisor().then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+
+        ctx.commit("setSupervisor", {
+          id: resp.data.id,
+        });
+      });
+    },
+  },
 };
