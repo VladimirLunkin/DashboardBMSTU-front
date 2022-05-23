@@ -1,5 +1,15 @@
 import api from "@/api/index";
 
+function Clear(ctx) {
+  ctx.commit("logout");
+  ctx.commit("clearCourses");
+  ctx.commit("clearStudent");
+  ctx.commit("clearSupervisorCourses");
+  ctx.commit("clearEvents");
+  ctx.commit("clearGroups");
+  ctx.commit("clearSupervisor");
+}
+
 export default {
   state: {
     loggedIn: false,
@@ -29,6 +39,12 @@ export default {
     },
     getRole(state) {
       return state.role;
+    },
+    isSupervisor(state) {
+      return state.role === "Supervisor";
+    },
+    isStudent(state) {
+      return state.role === "Student";
     },
     getPassStatus(state) {
       return state.pass_status;
@@ -81,13 +97,7 @@ export default {
       // });
     },
     async Logout(ctx) {
-      ctx.commit("logout");
-      ctx.commit("clearCourses");
-      ctx.commit("clearStudent");
-      ctx.commit("clearSupervisorCourses");
-      ctx.commit("clearEvents");
-      ctx.commit("clearGroups");
-      ctx.commit("clearSupervisor");
+      Clear(ctx);
       return api.auth.logout().then((resp) => {
         if (resp.status !== 200) {
           throw resp;

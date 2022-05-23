@@ -36,10 +36,10 @@ export default {
   },
   methods: {
     Home() {
-      if (this.getRole === "supervisor") {
+      if (this.isSupervisor) {
         router.push({ name: "control" });
       }
-      if (this.getRole === "student") {
+      if (this.isStudent) {
         router.push({ name: "progress" });
       }
     },
@@ -66,7 +66,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["shortName", "getRole"]),
+    ...mapGetters(["shortName", "isSupervisor", "isStudent"]),
   },
   mounted() {
     let vm = this;

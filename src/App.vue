@@ -14,26 +14,43 @@ export default {
   components: {
     NavBar,
   },
-  computed: mapGetters(["getLoggedIn"]),
+  computed: mapGetters([
+    "getLoggedIn",
+    "getRole",
+    "isSupervisor",
+    "isStudent",
+    "getPassStatus",
+  ]),
   created() {
     if (!this.$store.loggedIn) {
       this.$store
         .dispatch("GetUser")
         .then(() => {
-          this.$store.dispatch("Update" + this.getRole).then(() => {
-            if (!this.getPassStatus) {
-              router.push({ name: "profile" });
-              return;
-            }
-            if (this.getRole === "Supervisor") {
-              router.push({ name: "control" });
-            }
-            if (this.getRole === "Student") {
-              router.push({ name: "progress" });
-            }
-          });
+          this.$store
+            .dispatch("Update" + this.getRole)
+            .then(() => {
+              if (!this.getPassStatus) {
+                router.push({ name: "profile" });
+                return;
+              }
+              if (this.isSupervisor) {
+                router.push({ name: "control" });
+              }
+              if (this.isStudent) {
+                router.push({ name: "progress" });
+              }
+            })
+            .catch((err) => {
+              console.log("err on student");
+              console.log(err);
+              this.$store.dispatch("Logout");
+              router.push({ name: "login" });
+            });
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log("err on cookie");
+          console.log(err);
+          this.$store.dispatch("Logout");
           router.push({ name: "login" });
         });
     }

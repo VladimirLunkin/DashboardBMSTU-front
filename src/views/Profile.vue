@@ -14,9 +14,15 @@ export default {
   name: "ProfileView",
   components: { ProfileInfo, UpdatePassword },
   computed: {
-    ...mapGetters(["getRole", "fullName", "getCourseNumber", "getGroupCode"]),
+    ...mapGetters([
+      "isSupervisor",
+      "isStudent",
+      "fullName",
+      "getCourseNumber",
+      "getGroupCode",
+    ]),
     profile() {
-      if (this.getRole === "student") {
+      if (this.isStudent) {
         return {
           ava: require("@/assets/student.svg"),
           info: {
@@ -26,7 +32,7 @@ export default {
           },
         };
       }
-      if (this.getRole === "supervisor") {
+      if (this.isSupervisor) {
         return {
           ava: require("@/assets/supervisor.svg"),
           info: {
