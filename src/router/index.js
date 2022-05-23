@@ -6,11 +6,6 @@ import ProgressControl from "@/views/ProgressControl";
 
 const routes = [
   {
-    path: "/",
-    name: "home",
-    component: () => import("@/views/HomeView.vue"),
-  },
-  {
     path: "/login",
     name: "login",
     component: Login,

@@ -3,9 +3,9 @@ export default function (instance) {
     instance.defaults.headers["x-csrf-token"] = sessionStorage.getItem("csrf");
   };
   return {
-    allCourses(payload) {
+    getCoursesTable() {
       setCSRF();
-      return instance.get("student/progress", payload);
+      return instance.get("student/table");
     },
     uploadFile(eventId, payload) {
       setCSRF();

@@ -1,3 +1,5 @@
+import api from "@/api";
+
 export default {
   state: {
     courses: [
@@ -146,5 +148,15 @@ export default {
       state.courses = [];
     },
   },
-  actions: {},
+  actions: {
+    async updateCoursesTable(ctx) {
+      return api.student.getCoursesTable().then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+
+        ctx.commit("setCourses", resp.data.courses);
+      });
+    },
+  },
 };
