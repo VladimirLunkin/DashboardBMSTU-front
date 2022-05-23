@@ -160,7 +160,8 @@ export default {
   },
   mutations: {
     clearEvents(state) {
-      state.events = [];
+      state.eventsCommon = [];
+      state.events = {};
     },
   },
   action: {},

@@ -31,8 +31,7 @@ export default {
             router.push({ name: "progress" });
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
           router.push({ name: "login" });
         });
     }

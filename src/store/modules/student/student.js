@@ -1,29 +1,11 @@
 export default {
   state: {
     id: 0,
-    fName: "Vladimir",
-    mName: "Igorevich",
-    lName: "Lunkin",
-    username: "",
     groupID: "",
     groupCode: "ИУ5-35Б",
-    courses: [],
   },
   getters: {
-    fullName(state) {
-      return state.fName + " " + state.mName + " " + state.lName;
-    },
-    shortName(state) {
-      if (
-        state.fName.length < 1 ||
-        state.mName.length < 1 ||
-        state.lName.length < 1
-      ) {
-        return "";
-      }
-      return state.lName + " " + state.fName[0] + ". " + state.mName[0] + ".";
-    },
-    getCourse(state) {
+    getCourseNumber(state) {
       let group = state.groupCode;
 
       if (!group.length || group.length < 1) {
@@ -47,22 +29,13 @@ export default {
   mutations: {
     setStudent(state, student) {
       state.id = student.id;
-      state.fName = student.fName;
-      state.mName = student.mName;
-      state.lName = student.lName;
-      // state.username = student.username;
-      // state.groupID = student.groupID;
-      // state.groupCode = student.groupCode;
+      state.groupID = student.groupID;
+      state.groupCode = student.groupCode;
     },
     clearStudent(state) {
       state.id = 0;
-      state.fName = "";
-      state.mName = "";
-      state.lName = "";
-      state.username = "";
       state.groupID = "";
       state.groupCode = "";
-      state.courses = [];
     },
   },
   actions: {},

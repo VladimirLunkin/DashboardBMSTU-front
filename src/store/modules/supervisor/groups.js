@@ -139,6 +139,7 @@ export default {
     // },
     clearGroups(state) {
       state.groups = [];
+      state.currGroup = 0;
     },
   },
   actions: {},

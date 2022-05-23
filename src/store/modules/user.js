@@ -3,12 +3,29 @@ import api from "@/api/index";
 export default {
   state: {
     loggedIn: false,
+    fName: "Vladimir",
+    mName: "Igorevich",
+    lName: "Lunkin",
+    username: "",
     role: "",
     pass_status: false,
   },
   getters: {
     getLoggedIn(state) {
       return state.loggedIn;
+    },
+    fullName(state) {
+      return state.fName + " " + state.mName + " " + state.lName;
+    },
+    shortName(state) {
+      if (
+        state.fName.length < 1 ||
+        state.mName.length < 1 ||
+        state.lName.length < 1
+      ) {
+        return "";
+      }
+      return state.lName + " " + state.fName[0] + ". " + state.mName[0] + ".";
     },
     getRole(state) {
       return state.role;
@@ -23,14 +40,20 @@ export default {
     },
     logout(state) {
       state.loggedIn = false;
-      state.pass_status = false;
+      state.fName = "";
+      state.mName = "";
+      state.lName = "";
+      state.username = "";
       state.role = "";
+      state.pass_status = false;
     },
-    setRole(state, role) {
-      state.role = role;
-    },
-    setPassStatus(state, st) {
-      state.pass_status = st;
+    setUser(state, user) {
+      state.fName = user.firstname;
+      state.mName = user.middleName;
+      state.lName = user.lastname;
+      state.username = user.email;
+      state.role = user.is_super ? "supervisor" : "student";
+      state.pass_status = user.pass_status;
     },
   },
   actions: {
@@ -38,7 +61,7 @@ export default {
       return api.auth
         .login({
           email: username,
-          password,
+          password: password,
         })
         .then((resp) => {
           if (resp.status !== 200) {
@@ -46,30 +69,25 @@ export default {
           }
 
           ctx.commit("login");
-          ctx.commit("setRole", resp.data.is_super ? "supervisor" : "student");
-          ctx.commit("setPassStatus", resp.data.pass_status);
-          ctx.commit("setStudent", {
-            id: resp.data.id,
-            fName: resp.data.firstname,
-            mName: resp.data.middleName,
-            lName: resp.data.lastname,
-            username: resp.data.email,
-            groupID: resp.data.groupID,
-            groupCode: resp.data.groupCode,
-          });
-        })
-        .catch(() => {
-          if (username !== "admin") {
-            throw "resp";
-          }
-          ctx.commit("login");
-          ctx.commit("setRole", "student");
-          ctx.commit("setPassStatus", true);
+          ctx.commit("setUser", resp.data);
         });
+      // .catch(() => {
+      //   if (username !== "admin") {
+      //     throw "resp";
+      //   }
+      //   ctx.commit("login");
+      //   ctx.commit("setRole", "student");
+      //   ctx.commit("setPassStatus", true);
+      // });
     },
     async Logout(ctx) {
       ctx.commit("logout");
+      ctx.commit("clearCourses");
       ctx.commit("clearStudent");
+      ctx.commit("clearSupervisorCourses");
+      ctx.commit("clearEvents");
+      ctx.commit("clearGroups");
+      ctx.commit("clearSupervisor");
       return api.auth.logout().then((resp) => {
         if (resp.status !== 200) {
           throw resp;
@@ -83,17 +101,7 @@ export default {
         }
 
         ctx.commit("login");
-        ctx.commit("setRole", resp.data.is_super ? "supervisor" : "student");
-        ctx.commit("setPassStatus", resp.data.pass_status);
-        ctx.commit("setStudent", {
-          id: resp.data.id,
-          fName: resp.data.firstname,
-          mName: resp.data.middleName,
-          lName: resp.data.lastname,
-          username: resp.data.email,
-          groupID: resp.data.groupID,
-          groupCode: resp.data.groupCode,
-        });
+        ctx.commit("setUser", resp.data);
       });
     },
   },

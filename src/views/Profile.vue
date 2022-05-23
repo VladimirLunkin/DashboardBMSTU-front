@@ -14,14 +14,14 @@ export default {
   name: "ProfileView",
   components: { ProfileInfo, UpdatePassword },
   computed: {
-    ...mapGetters(["getRole", "fullName", "getCourse", "getGroupCode"]),
+    ...mapGetters(["getRole", "fullName", "getCourseNumber", "getGroupCode"]),
     profile() {
       if (this.getRole === "student") {
         return {
           ava: require("@/assets/student.svg"),
           info: {
             Имя: this.fullName,
-            Курс: this.getCourse,
+            Курс: this.getCourseNumber,
             Группа: this.getGroupCode,
           },
         };

@@ -1,10 +1,6 @@
 export default {
   state: {
     id: 10,
-    fName: "Vladimir",
-    mName: "Igorevich",
-    lName: "Lunkin",
-    username: "",
   },
   getters: {
     fullNameSupervisor(state) {
@@ -31,10 +27,6 @@ export default {
     },
     clearSupervisor(state) {
       state.id = 0;
-      state.fName = "";
-      state.mName = "";
-      state.lName = "";
-      state.username = "";
     },
   },
   actions: {},
