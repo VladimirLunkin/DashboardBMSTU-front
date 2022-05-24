@@ -226,7 +226,7 @@ export default {
 }
 
 .event {
-  width: 400px;
+  min-width: 400px;
   padding: 12px;
 
   background: $color-white;
