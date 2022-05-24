@@ -150,7 +150,6 @@ export default {
         }
         i++;
       }
-      console.log(event);
       return event;
     },
     getEventName: (state) => (courseId, eventId) => {

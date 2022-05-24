@@ -183,7 +183,7 @@ export default {
     },
     convertFullDate(dateStr) {
       const date = new Date(dateStr);
-      return date.getDay() + "." + date.getMonth() + "." + date.getFullYear();
+      return date.toLocaleDateString();
     },
     convertShortDate(dateStr) {
       const date = new Date(dateStr);
@@ -192,8 +192,6 @@ export default {
   },
   watch: {
     eventInfo() {
-      console.log(this.eventInfo.courseId);
-      console.log(this.eventInfo.eventId);
       this.event = this.getEvent(
         this.eventInfo.courseId,
         this.eventInfo.eventId
