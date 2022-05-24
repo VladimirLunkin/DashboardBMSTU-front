@@ -54,6 +54,7 @@
           <div>{{ event.comment }}</div>
         </div>
         <f-button
+          v-model="newFile"
           :event-id="event.eventId"
           class="event__upload-button"
           v-if="isUploadButton"
@@ -84,7 +85,7 @@ export default {
   data() {
     return {
       event: {},
-      newFiles: false,
+      newFile: "",
     };
   },
   emits: ["update:modelValue"],
@@ -157,7 +158,7 @@ export default {
       return (0 < s && s < 4) || s === 6;
     },
     isSubmitButton() {
-      return this.newFiles;
+      return this.newFile !== "";
     },
   },
   methods: {
@@ -170,11 +171,8 @@ export default {
     DeleteFile(index) {
       console.log("delete file: ", this.event.files[index]);
     },
-    UploadFiles() {
-      this.newFiles = true;
-    },
     SubmitFiles() {
-      this.newFiles = false;
+      this.newFile = "";
     },
     getDeadlineDays(dateStr) {
       const date = new Date(dateStr);
@@ -195,6 +193,11 @@ export default {
         this.eventInfo.courseId,
         this.eventInfo.eventId
       );
+    },
+    newFile() {
+      if (this.newFile !== "") {
+        this.event.files.push(this.newFile);
+      }
     },
   },
   mounted() {

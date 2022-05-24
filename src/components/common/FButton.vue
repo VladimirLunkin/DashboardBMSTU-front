@@ -20,19 +20,36 @@ export default {
   name: "FButton",
   props: {
     eventId: String,
+    modelValue: String,
   },
   data() {
     return {
       file: "",
     };
   },
+  emits: ["update:modelValue"],
+  computed: {
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit("update:modelValue", value);
+      },
+    },
+  },
   methods: {
     AddFile() {
       this.file = this.$refs.file.files[0];
-      this.$api.student
-        .uploadFile(this.eventId, this.file)
-        .then(() => {
+
+      this.$store
+        .dispatch("UploadFile", {
+          eventId: this.eventId,
+          file: this.file,
+        })
+        .then((fileName) => {
           console.log("Ok!!!");
+          this.value = fileName;
         })
         .catch((err) => {
           console.log(err);
