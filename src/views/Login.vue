@@ -64,30 +64,34 @@ export default {
           username: this.username,
           password: this.password,
         })
-        .catch((resp) => {
-          if (resp.status === 401) {
-            this.errUsername = wrongLorP;
-            this.errPassword = wrongLorP;
-            throw "wrongLorP";
-          }
-          throw resp;
-        })
         .then(() => {
-          if (this.getPassStatus) {
-            router.push({ name: "home" });
-          } else {
-            router.push({ name: "profile" });
-          }
+          this.$store
+            .dispatch("Update" + this.getRole)
+            .then(() => {
+              if (!this.getPassStatus) {
+                router.push({ name: "profile" });
+                return;
+              }
+              if (this.isSupervisor) {
+                router.push({ name: "control" });
+              }
+              if (this.isStudent) {
+                router.push({ name: "progress" });
+              }
+            })
+            .catch(() => {
+              this.$store.dispatch("Logout");
+              router.push({ name: "login" });
+            });
         })
-        .catch((err) => {
-          if (err !== wrongLorP) {
-            console.log(err);
-          }
+        .catch(() => {
+          this.errUsername = wrongLorP;
+          this.errPassword = wrongLorP;
         });
     },
   },
   computed: {
-    ...mapGetters(["getPassStatus"]),
+    ...mapGetters(["getPassStatus", "getRole", "isSupervisor", "isStudent"]),
   },
   watch: {
     username() {

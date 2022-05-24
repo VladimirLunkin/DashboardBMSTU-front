@@ -7,5 +7,17 @@ export default function (instance) {
       setCSRF();
       return instance.get("supervisor");
     },
+    getCourses() {
+      setCSRF();
+      return instance.get("supervisor/courses");
+    },
+    getGroupsOnCourse(courseId) {
+      setCSRF();
+      return instance.get(`course/${courseId}/group`);
+    },
+    getStudentsFromGroup(groupId) {
+      setCSRF();
+      return instance.get(`group/${groupId}/students`);
+    },
   };
 }

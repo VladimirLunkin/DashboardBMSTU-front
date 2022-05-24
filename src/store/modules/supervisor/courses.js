@@ -1,3 +1,5 @@
+import api from "@/api";
+
 export default {
   state: {
     courses: [
@@ -17,9 +19,22 @@ export default {
   },
   getters: {},
   mutations: {
+    setSupervisorCourses(state, courses) {
+      state.courses = courses;
+    },
     clearSupervisorCourses(state) {
       state.courses = [];
     },
   },
-  actions: {},
+  actions: {
+    async GetSupervisorCourses(ctx) {
+      return api.supervisor.getCourses().then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+
+        ctx.commit("setSupervisorCourses", resp.data);
+      });
+    },
+  },
 };

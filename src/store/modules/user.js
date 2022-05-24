@@ -87,14 +87,6 @@ export default {
           ctx.commit("login");
           ctx.commit("setUser", resp.data);
         });
-      // .catch(() => {
-      //   if (username !== "admin") {
-      //     throw "resp";
-      //   }
-      //   ctx.commit("login");
-      //   ctx.commit("setRole", "student");
-      //   ctx.commit("setPassStatus", true);
-      // });
     },
     async Logout(ctx) {
       Clear(ctx);
@@ -103,6 +95,9 @@ export default {
           throw resp;
         }
       });
+    },
+    async ClearStores(ctx) {
+      Clear(ctx);
     },
     async GetUser(ctx) {
       return api.auth.getUser().then((resp) => {

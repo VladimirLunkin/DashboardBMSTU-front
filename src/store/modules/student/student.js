@@ -32,7 +32,9 @@ export default {
     setStudent(state, student) {
       state.id = student.id;
       state.groupID = student.groupID;
-      state.groupCode = student.groupCode;
+    },
+    setGroup(state, group) {
+      state.groupCode = group.groupCode;
     },
     clearStudent(state) {
       state.id = 0;
@@ -42,6 +44,23 @@ export default {
   },
   actions: {
     async UpdateStudent(ctx) {
+      api.student
+        .getGroup()
+        .then((resp) => {
+          if (resp.status !== 200) {
+            throw resp;
+          }
+
+          ctx.commit("setGroup", {
+            groupCode: resp.data.groupCode,
+          });
+        })
+        .catch(() => {
+          console.log("!!! запрос на группу студента не сработал !!!");
+          ctx.commit("setGroup", {
+            groupCode: "ИУ5-85Б",
+          });
+        });
       return api.student.getStudent().then((resp) => {
         if (resp.status !== 200) {
           throw resp;
@@ -49,8 +68,7 @@ export default {
 
         ctx.commit("setStudent", {
           id: resp.data.id,
-          groupID: resp.data.group.id,
-          groupCode: resp.data.group.group_code,
+          groupID: resp.data.groupId,
         });
       });
     },

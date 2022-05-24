@@ -32,7 +32,7 @@ import EventInfo from "@/components/EventInfo";
 export default {
   name: "ProgressView",
   created() {
-    this.$store.dispatch("updateCoursesTable").catch((resp) => {
+    this.$store.dispatch("UpdateCoursesTable").catch((resp) => {
       alert("Хреновый запрос или ответ");
       console.log(resp);
     });

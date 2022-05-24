@@ -41,16 +41,13 @@ export default {
               }
             })
             .catch((err) => {
-              console.log("err on student");
               console.log(err);
               this.$store.dispatch("Logout");
               router.push({ name: "login" });
             });
         })
-        .catch((err) => {
-          console.log("err on cookie");
-          console.log(err);
-          this.$store.dispatch("Logout");
+        .catch(() => {
+          this.$store.dispatch("ClearStores");
           router.push({ name: "login" });
         });
     }

@@ -7,6 +7,10 @@ export default function (instance) {
       setCSRF();
       return instance.get("student");
     },
+    getGroup() {
+      setCSRF();
+      return instance.get("student/group");
+    },
     getCoursesTable() {
       setCSRF();
       return instance.get("student/table");

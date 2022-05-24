@@ -149,7 +149,7 @@ export default {
     },
   },
   actions: {
-    async updateCoursesTable(ctx) {
+    async UpdateCoursesTable(ctx) {
       return api.student.getCoursesTable().then((resp) => {
         if (resp.status !== 200) {
           throw resp;
