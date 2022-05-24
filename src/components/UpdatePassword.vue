@@ -81,16 +81,12 @@ export default {
         return;
       }
 
-      this.$api.auth
-        .updatePass({
+      this.$store
+        .dispatch("UpdatePass", {
           new_pass: this.newPassword,
           old_pass: this.password,
         })
-        .then((resp) => {
-          if (resp.status !== 200) {
-            throw resp;
-          }
-
+        .then(() => {
           this.isUpdatedPass = true;
           setTimeout(() => {
             this.isUpdatedPass = false;

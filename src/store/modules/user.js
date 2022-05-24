@@ -71,6 +71,9 @@ export default {
       state.role = user.is_super ? "Supervisor" : "Student";
       state.pass_status = user.pass_status;
     },
+    updatePass(state) {
+      state.pass_status = true;
+    },
   },
   actions: {
     async Login(ctx, { username, password }) {
@@ -108,6 +111,20 @@ export default {
         ctx.commit("login");
         ctx.commit("setUser", resp.data);
       });
+    },
+    async UpdatePass(ctx, { new_pass, old_pass }) {
+      return api.auth
+        .updatePass({
+          new_pass,
+          old_pass,
+        })
+        .then((resp) => {
+          if (resp.status !== 200) {
+            throw resp;
+          }
+
+          ctx.commit("updatePass");
+        });
     },
   },
 };
