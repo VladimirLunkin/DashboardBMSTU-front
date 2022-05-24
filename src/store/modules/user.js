@@ -8,6 +8,7 @@ function Clear(ctx) {
   ctx.commit("clearEvents");
   ctx.commit("clearGroups");
   ctx.commit("clearSupervisor");
+  ctx.commit("clearSupervisorStudents");
 }
 
 export default {

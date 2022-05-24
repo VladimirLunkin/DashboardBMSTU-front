@@ -34,7 +34,7 @@
         </template>
       </tr>
       <tr v-for="student in getStudents" :key="student.id">
-        <td>{{ student.shortName }}</td>
+        <td>{{ convertToShortName(student) }}</td>
         <template v-for="event in getEvents(student.id)" :key="event.eventId">
           <td @click="OpenEventInfo(student.id, event.eventId)" class="event">
             <img :src="getEventIcon(event.status)" class="event__status-icon" />
@@ -71,7 +71,7 @@ export default {
   components: { EventInfo },
   computed: {
     ...mapGetters({
-      getStudents: "getShortStudents",
+      getStudents: "getStudents",
       getEventNames: "getSupervisorEventTitle",
       getSupervisorEvents: "getSupervisorEvents",
       getCourses: "getCourses",
@@ -95,6 +95,21 @@ export default {
       this.eventInfo = { studentId, eventId };
       this.eventInfo.isModalVisible = true;
     },
+    convertToShortName(student) {
+      return (
+        student.lastName +
+        " " +
+        student.firstName[0] +
+        ". " +
+        student.middleName[0] +
+        "."
+      );
+    },
+  },
+  watch: {
+    selectedGroup() {
+      this.$store.dispatch("UpdateCurrentStudents", this.selectedGroup);
+    },
   },
 };
 </script>
@@ -103,12 +118,13 @@ export default {
 @import "@/assets/variables.scss";
 
 caption {
-  margin-bottom: 24px;
+  margin: 24px 0;
+  min-width: 550px;
 }
 
 th,
 td {
-  padding: 6px 18px;
+  padding: 3px 18px;
 }
 
 td {

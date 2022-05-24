@@ -42,6 +42,15 @@ export default {
 
         ctx.commit("setSupervisorGroups", resp.data);
       });
+
+      const groupId = this.getters.getCurrentGroupId;
+      await api.supervisor.getStudentsFromGroup(groupId).then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+
+        ctx.commit("setSupervisorStudents", resp.data);
+      });
     },
   },
 };
