@@ -131,13 +131,42 @@ export default {
       return maxLength;
     },
     getEvent: (state) => (courseId, eventId) => {
-      return state.courses[courseId].events[eventId];
+      let events = [];
+      let i = 0;
+      while (i < state.courses.length) {
+        if (state.courses[i].courseId === courseId) {
+          events = state.courses[i].events;
+          break;
+        }
+        i++;
+      }
+
+      let event = [];
+      i = 0;
+      while (i < events.length) {
+        if (events[i].eventId === eventId) {
+          event = events[i];
+          break;
+        }
+        i++;
+      }
+      console.log(event);
+      return event;
     },
     getEventName: (state) => (courseId, eventId) => {
       return state.courses[courseId].events[eventId].eventName;
     },
     getCourseName: (state) => (courseId) => {
-      return state.courses[courseId].courseName;
+      let courseName = "";
+      let i = 0;
+      while (i < state.courses.length) {
+        if (state.courses[i].courseId === courseId) {
+          courseName = state.courses[i].courseName;
+          break;
+        }
+        i++;
+      }
+      return courseName;
     },
   },
   mutations: {

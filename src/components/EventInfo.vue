@@ -114,9 +114,6 @@ export default {
     getIconStatus() {
       return require("@/assets/icons/status_" + this.event.status + ".svg");
     },
-    getDeadlineDays() {
-      return 5; // TODO
-    },
     eventTable() {
       return [
         {
@@ -127,17 +124,17 @@ export default {
         {
           name: "Выдано в работу:",
           icon: require("@/assets/icons/calendar.svg"),
-          value: this.event.eventDate,
+          value: this.convertFullDate(this.event.eventDate),
         },
         {
           name: "Дедлайн:",
           icon: require("@/assets/icons/calendar_event.svg"),
-          value: this.event.deadline,
+          value: this.convertFullDate(this.event.deadline),
         },
         {
           name: "Дней до дедлайна:",
           icon: require("@/assets/icons/hourglass_empty.svg"),
-          value: this.getDeadlineDays,
+          value: this.getDeadlineDays(this.event.deadline),
         },
       ];
     },
@@ -180,9 +177,23 @@ export default {
     SubmitFiles() {
       this.newFiles = false;
     },
+    getDeadlineDays(dateStr) {
+      const date = new Date(dateStr);
+      return ((date - Date.now()) / (1000 * 60 * 60 * 24)) | 0;
+    },
+    convertFullDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.getDay() + "." + date.getMonth() + "." + date.getFullYear();
+    },
+    convertShortDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.getDay() + "." + date.getMonth();
+    },
   },
   watch: {
     eventInfo() {
+      console.log(this.eventInfo.courseId);
+      console.log(this.eventInfo.eventId);
       this.event = this.getEvent(
         this.eventInfo.courseId,
         this.eventInfo.eventId
