@@ -26,13 +26,15 @@
       class="update-pass__repeat-password"
     />
     <d-button @click="Save" class="update-pass__button">Сохранить</d-button>
+    <span v-if="isUpdatedPass" class="update-pass__message"
+      >Пароль успешно обновлен!</span
+    >
   </div>
 </template>
 
 <script>
 import IInput from "@/components/common/IInput";
 import DButton from "@/components/common/DButton";
-import router from "@/router";
 
 const rePass = new RegExp("[a-zA-Z0-9].{5,20}");
 
@@ -50,6 +52,7 @@ export default {
       errPass: "",
       errNewPass: "",
       errRepPass: "",
+      isUpdatedPass: false,
     };
   },
   methods: {
@@ -88,7 +91,10 @@ export default {
             throw resp;
           }
 
-          router.push({ name: "home" });
+          this.isUpdatedPass = true;
+          setTimeout(() => {
+            this.isUpdatedPass = false;
+          }, 3000);
         })
         .catch(() => {
           this.errPass = errWrongPass;
@@ -143,6 +149,13 @@ export default {
 }
 
 .update-pass__button {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+}
+
+.update-pass__message {
+  margin-top: -40px;
+  height: 40px;
+  color: $color-green;
+  padding-top: 8px;
 }
 </style>
