@@ -1,11 +1,9 @@
-import api from "@/api";
-
 export default {
   state: {
     courses: [
       {
-        courseId: 0,
-        courseName: "Эксплуатация АСОИУ",
+        id: 4,
+        course_name: "Эксплуатация АСОИУ",
       },
       {
         courseId: 1,
@@ -16,25 +14,27 @@ export default {
         courseName: "Русский язык делового общения",
       },
     ],
+    currentCourseId: 4,
   },
-  getters: {},
+  getters: {
+    getCurrentCourseId(state) {
+      return state.currentCourseId;
+    },
+    getCourses(state) {
+      return state.courses;
+    },
+  },
   mutations: {
     setSupervisorCourses(state, courses) {
       state.courses = courses;
+      if (courses.length > 0) {
+        state.currentCourseId = courses[0].id;
+      }
     },
     clearSupervisorCourses(state) {
       state.courses = [];
+      state.currentCourseId = 0;
     },
   },
-  actions: {
-    async GetSupervisorCourses(ctx) {
-      return api.supervisor.getCourses().then((resp) => {
-        if (resp.status !== 200) {
-          throw resp;
-        }
-
-        ctx.commit("setSupervisorCourses", resp.data);
-      });
-    },
-  },
+  actions: {},
 };

@@ -6,6 +6,28 @@
         <h1>Контроль успеваемости</h1>
       </caption>
       <tr>
+        <td colspan="20">
+          <select v-model="selectedCourse" class="table__select">
+            <option
+              v-for="course in getCourses"
+              :value="course.id"
+              :key="course.id"
+            >
+              {{ course.course_name }}
+            </option>
+          </select>
+          <select v-model="selectedGroup" class="table__select">
+            <option
+              v-for="group in getGroups"
+              :value="group.groupId"
+              :key="group.groupId"
+            >
+              {{ group.groupCode }}
+            </option>
+          </select>
+        </td>
+      </tr>
+      <tr>
         <th>Студент</th>
         <template v-for="event in getEventNames" :key="event.id">
           <th>{{ event.eventName }}</th>
@@ -29,6 +51,12 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "ProgressControlView",
+  async created() {
+    await this.$store.dispatch("GetSupervisorTable").catch((resp) => {
+      alert("запрос GetSupervisorTable");
+      console.log(resp);
+    });
+  },
   data() {
     return {
       eventInfo: {
@@ -36,6 +64,8 @@ export default {
         studentId: 0,
         eventId: 0,
       },
+      selectedCourse: this.$store.getters.getCurrentCourseId,
+      selectedGroup: this.$store.getters.getCurrentGroupId,
     };
   },
   components: { EventInfo },
@@ -44,6 +74,8 @@ export default {
       getStudents: "getShortStudents",
       getEventNames: "getSupervisorEventTitle",
       getSupervisorEvents: "getSupervisorEvents",
+      getCourses: "getCourses",
+      getGroups: "getGroups",
     }),
   },
   methods: {
@@ -68,6 +100,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/variables.scss";
+
 caption {
   margin-bottom: 24px;
 }
@@ -84,5 +118,11 @@ td {
 .event__status-icon {
   width: 20px;
   margin: auto;
+}
+
+.table__select {
+  border-radius: $r-2;
+  padding: 3px 6px;
+  margin: 12px;
 }
 </style>
