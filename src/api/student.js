@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default function (instance) {
   const setCSRF = () => {
     instance.defaults.headers["x-csrf-token"] = sessionStorage.getItem("csrf");
@@ -17,7 +19,18 @@ export default function (instance) {
     },
     uploadFile(eventId, payload) {
       setCSRF();
-      return instance.post(`event/${eventId}/file`, payload);
+      let formData = new FormData();
+      formData.append("file", payload);
+      return axios.post(
+        `https://bmstu.site/api/v1/student/event/${eventId}/file`,
+        // `http://localhost:8001/api/v1/student/event/${eventId}/file`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
     },
     downloadFile(eventId) {
       setCSRF();

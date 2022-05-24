@@ -53,12 +53,11 @@
           <h4>Комментарий</h4>
           <div>{{ event.comment }}</div>
         </div>
-        <i-button
-          v-if="isUploadButton"
-          @click="UploadFiles"
-          icon="upload"
+        <f-button
+          :event-id="event.eventId"
           class="event__upload-button"
-          >Загрузить файл</i-button
+          v-if="isUploadButton"
+          >Загрузить файл</f-button
         >
         <d-button
           v-if="isSubmitButton"
@@ -73,12 +72,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import IButton from "@/components/common/IButton";
 import DButton from "@/components/common/DButton";
+import FButton from "@/components/common/FButton";
 
 export default {
   name: "EventInfo",
-  components: { DButton, IButton },
+  components: { DButton, FButton },
   props: {
     modelValue: Object,
   },
@@ -227,6 +226,7 @@ export default {
 
 .event {
   min-width: 400px;
+  max-width: 600px;
   padding: 12px;
 
   background: $color-white;
