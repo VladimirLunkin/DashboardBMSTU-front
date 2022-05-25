@@ -30,6 +30,8 @@ export default {
         }
         i++;
       }
+      console.log(event);
+      console.log(eventCommon);
 
       return {
         eventId: eventId,
@@ -38,7 +40,7 @@ export default {
         status: event.status,
         eventName: eventCommon.eventName,
         description: eventCommon.description,
-        files: event.uploadedFiles,
+        files: event.uploadFiles,
         comment: event.comment,
       };
     },

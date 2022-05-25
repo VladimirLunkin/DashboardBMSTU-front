@@ -140,7 +140,8 @@ export default {
       return this.event.eventName;
     },
     isUploadFiles() {
-      // console.log(this.event.files);
+      console.log(this.event);
+      console.log(this.event.files);
       // console.log(this.event.files.length);
       if (!this.event.files || !this.event.files.length) {
         return false;
