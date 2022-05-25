@@ -196,6 +196,9 @@ export default {
     },
     newFile() {
       if (this.newFile !== "") {
+        if (!this.event.files) {
+          this.event.files = [];
+        }
         this.event.files.push(this.newFile);
       }
     },
@@ -275,12 +278,13 @@ td {
   cursor: pointer;
 }
 
-.event__upload-button,
-.event__submit-button {
+.event__upload-button {
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .event__submit-button {
+  margin-bottom: 20px;
   background: $color-green;
   width: 230px;
 }

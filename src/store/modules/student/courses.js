@@ -186,7 +186,7 @@ export default {
         ctx.commit("setCourses", resp.data.courses);
       });
     },
-    async UploadFile(ctx, eventId, file) {
+    async UploadFile(ctx, { eventId, file }) {
       return api.student.uploadFile(eventId, file).then((resp) => {
         if (resp.status !== 200) {
           throw resp;

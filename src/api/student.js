@@ -40,5 +40,9 @@ export default function (instance) {
       setCSRF();
       return instance.delete(`event/${eventId}/file`);
     },
+    updateEventStatus(eventId, payload) {
+      setCSRF();
+      return instance.put(`student/event/${eventId}/status`, payload);
+    },
   };
 }
