@@ -40,7 +40,7 @@
             :key="index"
           >
             <span>{{ (index + 1).toString() + "." }}</span>
-            <a @click="OpenFile(index)" class="event__file">{{ file }}</a>
+            <a :href="downloadFile(index)" class="event__file">{{ file }}</a>
             <img
               @click="DeleteFile(index)"
               :src="require('@/assets/icons/delete.svg')"
@@ -162,6 +162,14 @@ export default {
     },
   },
   methods: {
+    downloadFile(index) {
+      console.log("open file: ", this.event.files[index]);
+      if (!this.event.files[index]) {
+        return;
+      }
+      // return `http://localhost:8001/api/v1/student/file/${this.event.files[index]}`;
+      return `https://bmstu.site/api/v1/student/file/${this.event.files[index]}`;
+    },
     Close() {
       this.eventInfo.isModalVisible = false;
     },

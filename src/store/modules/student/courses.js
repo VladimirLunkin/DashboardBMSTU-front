@@ -190,6 +190,24 @@ export default {
         i++;
       }
     },
+    addNewFile(state, eventId, fileName) {
+      let i = 0; // по курсам
+      let j = 0; // по эвентам
+      while (i < state.courses.length) {
+        j = 0;
+        while (j < state.courses[i].events.length) {
+          if (state.courses[i].events[j].eventId === eventId) {
+            if (!state.courses[i].events[j].files) {
+              state.courses[i].events[j].files = [];
+            }
+            state.courses[i].events[j].files.push(fileName);
+            return;
+          }
+          j++;
+        }
+        i++;
+      }
+    },
   },
   actions: {
     async UpdateCoursesTable(ctx) {
@@ -206,7 +224,10 @@ export default {
         if (resp.status !== 200) {
           throw resp;
         }
-        console.log("Ok!!!");
+        ctx.commit("addNewFile", {
+          eventId,
+          fileName: resp.data.file,
+        });
         return resp.data.file;
       });
     },
@@ -223,7 +244,6 @@ export default {
         if (resp.status !== 200) {
           throw resp;
         }
-        console.log("file download");
         ctx.commit("setEventStatus", {
           eventId,
           status,
