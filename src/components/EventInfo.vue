@@ -167,11 +167,19 @@ export default {
     },
     OpenFile(index) {
       console.log("open file: ", this.event.files[index]);
+      if (!this.event.files[index]) {
+        return;
+      }
+      this.$store.dispatch("DownloadFile", this.event.files[index]);
     },
     DeleteFile(index) {
       console.log("delete file: ", this.event.files[index]);
     },
     SubmitFiles() {
+      this.$store.dispatch("UpdateEventStatus", {
+        eventId: this.event.eventId,
+        status: 2,
+      });
       this.newFile = "";
     },
     getDeadlineDays(dateStr) {

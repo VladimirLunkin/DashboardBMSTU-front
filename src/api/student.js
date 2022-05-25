@@ -32,9 +32,13 @@ export default function (instance) {
         }
       );
     },
-    downloadFile(eventId) {
+    downloadFile(fileName) {
       setCSRF();
-      return instance.get(`event/${eventId}/file`);
+      return instance.get(`student/file/${fileName}`);
+    },
+    downloadFileTest(eventId) {
+      setCSRF();
+      return instance.get(`student/event/${eventId}/file`);
     },
     deleteFile(eventId) {
       setCSRF();

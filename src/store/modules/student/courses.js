@@ -175,6 +175,21 @@ export default {
     clearCourses(state) {
       state.courses = [];
     },
+    setEventStatus(state, eventId, status) {
+      let i = 0; // по курсам
+      let j = 0; // по эвентам
+      while (i < state.courses.length) {
+        j = 0;
+        while (j < state.courses[i].events.length) {
+          if (state.courses[i].events[j].eventId === eventId) {
+            state.courses[i].events[j].status = status;
+            return;
+          }
+          j++;
+        }
+        i++;
+      }
+    },
   },
   actions: {
     async UpdateCoursesTable(ctx) {
@@ -193,6 +208,26 @@ export default {
         }
         console.log("Ok!!!");
         return resp.data.file;
+      });
+    },
+    async DownloadFile(ctx, fileName) {
+      return api.student.downloadFile(fileName).then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+        console.log("file download");
+      });
+    },
+    async UpdateEventStatus(ctx, { eventId, status }) {
+      return api.student.updateEventStatus(eventId, { status }).then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+        console.log("file download");
+        ctx.commit("setEventStatus", {
+          eventId,
+          status,
+        });
       });
     },
   },
