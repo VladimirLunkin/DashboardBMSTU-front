@@ -86,6 +86,7 @@ const routes = [
       if (!store.getters.getLoggedIn) {
         next({ name: "login" });
       } else if (!store.getters.getPassStatus) {
+        alert("Смените пароль!");
         next({ name: "profile" });
       } else {
         store
@@ -106,6 +107,7 @@ const routes = [
       if (!store.getters.getLoggedIn) {
         next({ name: "login" });
       } else if (!store.getters.getPassStatus) {
+        alert("Смените пароль!");
         next({ name: "profile" });
       } else {
         store

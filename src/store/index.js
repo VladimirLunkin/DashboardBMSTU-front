@@ -13,10 +13,10 @@ export default createStore({
     user,
     student,
     studentCourses,
+    SupervisorGroups,
     Supervisor,
     SupervisorCourses,
     SupervisorEvents,
-    SupervisorGroups,
     SupervisorStudents,
   },
 });

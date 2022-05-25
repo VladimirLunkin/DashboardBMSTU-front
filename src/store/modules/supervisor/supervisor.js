@@ -51,6 +51,31 @@ export default {
 
         ctx.commit("setSupervisorStudents", resp.data);
       });
+
+      await api.supervisor.getEvents(courseId).then((resp) => {
+        if (resp.status !== 200) {
+          throw resp;
+        }
+
+        ctx.commit("setSupervisorEventsCommon", resp.data);
+      });
+
+      const students = this.getters.getStudents;
+
+      for (let i = 0; i < students.length; i++) {
+        await api.supervisor
+          .getStudentEvents(students[i].studentId, courseId)
+          .then((resp) => {
+            if (resp.status !== 200) {
+              throw resp;
+            }
+
+            ctx.commit("setSupervisorStudentEvents", {
+              studentId: students[i].studentId,
+              events: resp.data,
+            });
+          });
+      }
     },
   },
 };

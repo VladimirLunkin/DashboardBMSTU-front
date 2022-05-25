@@ -3,7 +3,7 @@
     <div class="event">
       <div class="modal__header">
         <div class="modal__header-title">
-          <h3 class="">{{ studentName }}</h3>
+          <h3 class="">{{ supShortName() }}</h3>
           <img
             :src="require('@/assets/icons/caret_right.svg')"
             class=""
@@ -40,7 +40,7 @@
             :key="index"
           >
             <span>{{ (index + 1).toString() + "." }}</span>
-            <a @click="OpenFile(index)" class="event__file">{{ file }}</a>
+            <a :href="downloadFile(index)" class="event__file">{{ file }}</a>
           </div>
         </div>
         <div v-if="isComment" class="event__description">
@@ -77,7 +77,6 @@ export default {
   emits: ["update:modelValue"],
   computed: {
     ...mapGetters({
-      getStudentName: "getShortStudent",
       getEvent: "getSupervisorEvent",
     }),
     eventInfo: {
@@ -137,9 +136,6 @@ export default {
         },
       ];
     },
-    studentName() {
-      return this.getStudentName(this.eventInfo.studentId);
-    },
     eventName() {
       return this.event.eventName;
     },
@@ -159,11 +155,19 @@ export default {
     },
   },
   methods: {
+    supShortName() {
+      return this.$store.getters.getShortStudent(this.eventInfo.studentId);
+    },
+    downloadFile(index) {
+      console.log("open file: ", this.event.files[index]);
+      if (!this.event.files[index]) {
+        return;
+      }
+      // return `http://localhost:8001/api/v1/supervisor/student/${this.eventInfo.studentId}/file/${this.event.files[index]}`;
+      return `https://bmstu.site/api/v1/supervisor/student/${this.eventInfo.studentId}/file/${this.event.files[index]}`;
+    },
     Close() {
       this.eventInfo.isModalVisible = false;
-    },
-    OpenFile(index) {
-      console.log("open file: ", this.event.files[index]);
     },
     OKButton() {
       console.log("ok");
@@ -206,6 +210,7 @@ export default {
 
 .event {
   min-width: 400px;
+  max-width: 600px;
   padding: 12px;
 
   background: $color-white;

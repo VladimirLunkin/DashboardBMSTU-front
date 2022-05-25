@@ -83,47 +83,22 @@ export default {
     getGroups(state) {
       return state.groups;
     },
-    // getShortStudents(state) {
-    //   const i = state.currGroup;
-    //   if (!state.groups.length || state.groups.length < i || i < 0) {
-    //     return [];
-    //   }
-    //   return state.groups[i].students.map((st) => {
-    //     if (st.fName.length < 1 || st.mName.length < 1 || st.lName.length < 1) {
-    //       return {};
-    //     }
-    //     return {
-    //       id: st.id,
-    //       shortName: st.lName + " " + st.fName[0] + ". " + st.mName[0] + ".",
-    //     };
-    //   });
-    // },
-    // getShortStudent: (state) => (studentId) => {
-    //   const curr = state.currGroup;
-    //   if (!state.groups.length || state.groups.length < curr || curr < 0) {
-    //     return "";
-    //   }
-    //   const group = state.groups[curr].students;
-    //
-    //   let i = 0;
-    //   while (i < group.length) {
-    //     if (group[i].id === studentId) {
-    //       return (
-    //         group[i].lName +
-    //         " " +
-    //         group[i].fName[0] +
-    //         ". " +
-    //         group[i].mName[0] +
-    //         "."
-    //       );
-    //     }
-    //     i++;
-    //   }
-    //
-    //   return "";
-    // },
+    getSupervisorGroup(state) {
+      let i = 0;
+      while (i < state.groups.length) {
+        if (state.groups[i].groupId === state.currentGroupId) {
+          return state.groups[i].students;
+        }
+        i++;
+      }
+
+      return [];
+    },
   },
   mutations: {
+    setSupervisorCurrentGroup(state, groupId) {
+      state.currentGroupId = groupId;
+    },
     setSupervisorGroups(state, groups) {
       state.groups = groups;
       if (groups.length > 0) {

@@ -29,14 +29,20 @@
       </tr>
       <tr>
         <th>Студент</th>
-        <template v-for="event in getEventNames" :key="event.id">
+        <template v-for="event in getEventNames" :key="event.eventId">
           <th>{{ event.eventName }}</th>
         </template>
       </tr>
-      <tr v-for="student in getStudents" :key="student.id">
+      <tr v-for="student in getStudents" :key="student.studentId">
         <td>{{ convertToShortName(student) }}</td>
-        <template v-for="event in getEvents(student.id)" :key="event.eventId">
-          <td @click="OpenEventInfo(student.id, event.eventId)" class="event">
+        <template
+          v-for="event in getEvents(student.studentId)"
+          :key="event.eventId"
+        >
+          <td
+            @click="OpenEventInfo(student.studentId, event.eventId)"
+            class="event"
+          >
             <img :src="getEventIcon(event.status)" class="event__status-icon" />
           </td>
         </template>
@@ -102,7 +108,8 @@ export default {
   },
   watch: {
     selectedGroup() {
-      this.$store.dispatch("UpdateCurrentStudents", this.selectedGroup);
+      this.$store.commit("setSupervisorCurrentGroup", this.selectedGroup);
+      setTimeout(this.$store.dispatch("GetSupervisorTable"), 1000);
     },
   },
 };

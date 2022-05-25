@@ -66,24 +66,6 @@ export default {
         })
         .then(() => {
           router.push({ name: "dashboard" });
-          // this.$store
-          //   .dispatch("Update" + this.getRole)
-          //   .then(() => {
-          //     if (!this.getPassStatus) {
-          //       router.push({ name: "profile" });
-          //       return;
-          //     }
-          //     if (this.isSupervisor) {
-          //       router.push({ name: "control" });
-          //     }
-          //     if (this.isStudent) {
-          //       router.push({ name: "progress" });
-          //     }
-          //   })
-          //   .catch(() => {
-          //     this.$store.dispatch("Logout");
-          //     router.push({ name: "login" });
-          //   });
         })
         .catch(() => {
           this.errUsername = wrongLorP;

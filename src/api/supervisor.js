@@ -19,5 +19,13 @@ export default function (instance) {
       setCSRF();
       return instance.get(`group/${groupId}/students`);
     },
+    getEvents(courseId) {
+      setCSRF();
+      return instance.get(`course/${courseId}/events`);
+    },
+    getStudentEvents(studentId, courseId) {
+      setCSRF();
+      return instance.get(`supervisor/student/${studentId}/course/${courseId}`);
+    },
   };
 }

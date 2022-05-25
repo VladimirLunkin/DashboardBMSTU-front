@@ -175,7 +175,7 @@ export default {
     clearCourses(state) {
       state.courses = [];
     },
-    setEventStatus(state, eventId, status) {
+    setEventStatus(state, { eventId, status }) {
       let i = 0; // по курсам
       let j = 0; // по эвентам
       while (i < state.courses.length) {
