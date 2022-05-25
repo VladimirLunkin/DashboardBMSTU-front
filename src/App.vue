@@ -11,47 +11,13 @@ import { mapGetters } from "vuex";
 import router from "@/router";
 
 export default {
+  created() {
+    router.push({ name: "profile" });
+  },
   components: {
     NavBar,
   },
-  computed: mapGetters([
-    "getLoggedIn",
-    "getRole",
-    "isSupervisor",
-    "isStudent",
-    "getPassStatus",
-  ]),
-  created() {
-    if (!this.$store.loggedIn) {
-      this.$store
-        .dispatch("GetUser")
-        .then(() => {
-          this.$store
-            .dispatch("Update" + this.getRole)
-            .then(() => {
-              if (!this.getPassStatus) {
-                router.push({ name: "profile" });
-                return;
-              }
-              if (this.isSupervisor) {
-                router.push({ name: "control" });
-              }
-              if (this.isStudent) {
-                router.push({ name: "progress" });
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-              this.$store.dispatch("Logout");
-              router.push({ name: "login" });
-            });
-        })
-        .catch(() => {
-          this.$store.dispatch("ClearStores");
-          router.push({ name: "login" });
-        });
-    }
-  },
+  computed: mapGetters(["getLoggedIn"]),
 };
 </script>
 

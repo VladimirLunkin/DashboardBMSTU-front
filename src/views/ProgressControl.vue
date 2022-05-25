@@ -51,12 +51,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "ProgressControlView",
-  async created() {
-    await this.$store.dispatch("GetSupervisorTable").catch((resp) => {
-      alert("запрос GetSupervisorTable");
-      console.log(resp);
-    });
-  },
   data() {
     return {
       eventInfo: {

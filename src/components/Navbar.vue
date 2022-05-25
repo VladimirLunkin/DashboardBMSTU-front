@@ -36,12 +36,7 @@ export default {
   },
   methods: {
     Home() {
-      if (this.isSupervisor) {
-        router.push({ name: "control" });
-      }
-      if (this.isStudent) {
-        router.push({ name: "progress" });
-      }
+      router.push({ name: "dashboard" });
     },
     Profile() {
       router.push("/profile");
