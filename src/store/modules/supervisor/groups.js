@@ -74,7 +74,7 @@ export default {
         ],
       },
     ],
-    currentGroupId: 0,
+    currentGroupId: -1, // TODO подумать прапвильно ли это работает
   },
   getters: {
     getCurrentGroupId(state) {
@@ -101,7 +101,7 @@ export default {
     },
     setSupervisorGroups(state, groups) {
       state.groups = groups;
-      if (groups.length > 0) {
+      if (groups.length > 0 && state.currentGroupId === -1) {
         state.currentGroupId = groups[0].groupId;
       }
     },
