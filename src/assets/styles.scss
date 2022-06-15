@@ -4,36 +4,29 @@ body {
   background: $background;
 }
 
-h1 {
+@mixin header($size, $weight) {
   font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
+  font-weight: $weight;
+  font-size: $size;
 
   color: $color-black;
+  place-self: center;
+}
+
+h1 {
+  @include header(36px, 600);
 }
 
 h2 {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-
-  color: $color-black;
+  @include header(24px, 500);
 }
 
 h3 {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-
-  color: $color-black;
+  @include header(18px, 600);
 }
 
 h4 {
-  font-style: italic;
-  font-weight: 700;
-  font-size: 16px;
-
-  color: $color-black;
+  @include header(16px, 700);
 }
 
 a {

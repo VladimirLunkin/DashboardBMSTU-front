@@ -22,10 +22,27 @@ export default {
         i++;
       }
 
-      return "a";
+      return "0";
     },
     getGroupCode(state) {
       return state.groupCode;
+    },
+    getSemester(state) {
+      let group = state.groupCode;
+
+      if (!group.length || group.length < 1) {
+        return "";
+      }
+
+      let i = 0;
+      while (i < group.length - 1) {
+        if (group[i] === "-") {
+          return parseInt(group[i + 1], 10);
+        }
+        i++;
+      }
+
+      return "0";
     },
   },
   mutations: {

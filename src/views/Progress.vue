@@ -3,7 +3,7 @@
     <event-info v-model="eventInfo" />
     <table>
       <caption>
-        <h1>8 семестр</h1>
+        <h1>{{ getSemester }} семестр</h1>
       </caption>
       <tr>
         <th>Дисциплина</th>
@@ -42,7 +42,7 @@ export default {
   },
   components: { EventInfo },
   computed: {
-    ...mapGetters(["getTable", "getMaxEvents"]),
+    ...mapGetters(["getTable", "getMaxEvents", "getSemester"]),
   },
   methods: {
     getEvent(course) {

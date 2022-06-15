@@ -9,7 +9,7 @@
             class=""
             alt=""
           />
-          <h3 class="">{{ eventName }}</h3>
+          <h3 class="header-title__event-name">{{ eventName }}</h3>
         </div>
         <img
           @click="Close"
@@ -269,6 +269,11 @@ export default {
 
 .modal__close-icon {
   cursor: pointer;
+  margin-left: 12px;
+}
+
+.header-title__event-name {
+  white-space: nowrap;
 }
 
 .event__table,
