@@ -62,6 +62,7 @@
 <script>
 import { mapGetters } from "vuex";
 import IButton from "@/components/common/IButton";
+import { apiURL } from "@/api/const";
 
 export default {
   // name: "EventInfo",
@@ -161,8 +162,7 @@ export default {
       if (!this.event.files[index]) {
         return;
       }
-      // return `http://localhost:8001/api/v1/supervisor/student/${this.eventInfo.studentId}/file/${this.event.files[index]}`;
-      return `https://bmstu.site/api/v1/supervisor/student/${this.eventInfo.studentId}/file/${this.event.files[index]}`;
+      return `${apiURL}supervisor/student/${this.eventInfo.studentId}/file/${this.event.files[index]}`;
     },
     Close() {
       this.eventInfo.isModalVisible = false;

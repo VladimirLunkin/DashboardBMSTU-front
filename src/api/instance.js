@@ -1,8 +1,8 @@
 import axios from "axios";
+import { apiURL } from "@/api/const";
 
 const instance = axios.create({
-  baseURL: "https://bmstu.site/api/v1/",
-  // baseURL: "http://localhost:8001/api/v1/",
+  baseURL: apiURL,
   withCredentials: true,
   headers: {
     accept: "application/json",

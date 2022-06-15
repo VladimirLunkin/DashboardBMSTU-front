@@ -103,7 +103,7 @@ input::placeholder {
 }
 
 .i-input__error-text {
-  margin-left: 38px;
+  margin-left: 34px;
   font-size: $fs-6;
   color: $color-red;
 }

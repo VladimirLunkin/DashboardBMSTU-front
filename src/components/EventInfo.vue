@@ -75,6 +75,7 @@
 import { mapGetters } from "vuex";
 import DButton from "@/components/common/DButton";
 import FButton from "@/components/common/FButton";
+import api from "@/api";
 
 export default {
   name: "EventInfo",
@@ -167,8 +168,7 @@ export default {
       if (!this.event.files[index]) {
         return;
       }
-      // return `http://localhost:8001/api/v1/student/file/${this.event.files[index]}`;
-      return `https://bmstu.site/api/v1/student/file/${this.event.files[index]}`;
+      return `${api.URL}/student/file/${this.event.files[index]}`;
     },
     Close() {
       this.eventInfo.isModalVisible = false;

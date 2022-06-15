@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiURL } from "@/api/const";
 
 export default function (instance) {
   const setCSRF = () => {
@@ -21,16 +22,11 @@ export default function (instance) {
       setCSRF();
       let formData = new FormData();
       formData.append("file", payload);
-      return axios.post(
-        `https://bmstu.site/api/v1/student/event/${eventId}/file`,
-        // `http://localhost:8001/api/v1/student/event/${eventId}/file`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      return axios.post(`${apiURL}student/event/${eventId}/file`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     },
     downloadFile(fileName) {
       setCSRF();
