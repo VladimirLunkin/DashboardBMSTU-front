@@ -1,13 +1,15 @@
 <template>
   <nav-bar v-if="getLoggedIn" class=""></nav-bar>
   <div class="my-container">
-    <router-view />
+    <my-loader v-if="getLoader" />
+    <router-view v-show="!getLoader" />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/Navbar";
 import { mapGetters } from "vuex";
+import MyLoader from "@/components/Loader";
 import router from "@/router";
 
 export default {
@@ -15,9 +17,10 @@ export default {
     router.push({ name: "profile" });
   },
   components: {
+    MyLoader,
     NavBar,
   },
-  computed: mapGetters(["getLoggedIn"]),
+  computed: mapGetters(["getLoggedIn", "getLoader"]),
 };
 </script>
 

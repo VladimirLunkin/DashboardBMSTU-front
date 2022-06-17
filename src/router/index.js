@@ -4,8 +4,14 @@ import Profile from "@/views/Profile";
 import Progress from "@/views/Progress";
 import ProgressControl from "@/views/ProgressControl";
 import store from "@/store/index";
+import HomeView from "@/views/HomeView";
 
 const routes = [
+  {
+    path: "/home",
+    name: "home",
+    component: HomeView,
+  },
   {
     path: "/login",
     name: "login",
@@ -89,9 +95,22 @@ const routes = [
         alert("Смените пароль!");
         next({ name: "profile" });
       } else {
+        store.commit("DownloadStart");
+        let sec = 0;
+        setTimeout(() => {
+          sec = 1;
+        }, 500);
+        setTimeout(() => {
+          store.commit("DownloadEnd");
+        }, 3000);
         store
           .dispatch("UpdateCoursesTable")
-          .then(next)
+          .then(() => {
+            if (sec >= 1) {
+              store.commit("DownloadEnd");
+            }
+            next();
+          })
           .catch((err) => {
             console.log("UpdateCoursesTable");
             console.log(err);
@@ -110,9 +129,22 @@ const routes = [
         alert("Смените пароль!");
         next({ name: "profile" });
       } else {
+        store.commit("DownloadStart");
+        let sec = 0;
+        setTimeout(() => {
+          sec = 1;
+        }, 500);
+        setTimeout(() => {
+          store.commit("DownloadEnd");
+        }, 3000);
         store
           .dispatch("GetSupervisorTable")
-          .then(next)
+          .then(() => {
+            if (sec >= 1) {
+              store.commit("DownloadEnd");
+            }
+            next();
+          })
           .catch((err) => {
             console.log("UpdateCoursesTable");
             console.log(err);

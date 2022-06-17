@@ -20,10 +20,14 @@ export default {
     username: "",
     role: "",
     pass_status: false,
+    loader: false,
   },
   getters: {
     getLoggedIn(state) {
       return state.loggedIn;
+    },
+    getLoader(state) {
+      return state.loader;
     },
     fullName(state) {
       return state.fName + " " + state.mName + " " + state.lName;
@@ -74,6 +78,12 @@ export default {
     },
     updatePass(state) {
       state.pass_status = true;
+    },
+    DownloadStart(state) {
+      state.loader = true;
+    },
+    DownloadEnd(state) {
+      state.loader = false;
     },
   },
   actions: {
