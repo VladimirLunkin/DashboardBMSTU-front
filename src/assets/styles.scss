@@ -11,6 +11,9 @@ body {
 
   color: $color-black;
   place-self: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 h1 {

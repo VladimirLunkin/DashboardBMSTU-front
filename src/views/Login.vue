@@ -97,8 +97,9 @@ export default {
 @import "@/assets/variables.scss";
 
 .login-page {
-  display: contents;
-  justify-content: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .login-form {

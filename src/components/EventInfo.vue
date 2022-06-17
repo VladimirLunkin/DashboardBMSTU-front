@@ -3,7 +3,7 @@
     <div class="event">
       <div class="modal__header">
         <div class="modal__header-title">
-          <h3 class="">{{ courseName }}</h3>
+          <h3 class="header-title__course-name">{{ courseName }}</h3>
           <img
             :src="require('@/assets/icons/caret_right.svg')"
             class=""
@@ -272,8 +272,8 @@ export default {
   margin-left: 12px;
 }
 
-.header-title__event-name {
-  white-space: nowrap;
+.header-title__course-name {
+  max-width: 400px;
 }
 
 .event__table,
