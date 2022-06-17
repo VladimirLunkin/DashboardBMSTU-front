@@ -65,7 +65,11 @@ export default {
           password: this.password,
         })
         .then(() => {
-          router.push({ name: "dashboard" });
+          if (this.getPassStatus) {
+            router.push({ name: "dashboard" });
+          } else {
+            router.push({ name: "profile" });
+          }
         })
         .catch(() => {
           this.errUsername = wrongLorP;
