@@ -72,7 +72,7 @@ export default {
 
   padding-top: 3px;
 
-  font-weight: bold;
+  font-weight: $weight-3;
 
   color: $color-white;
   background: $color-dark-blue;

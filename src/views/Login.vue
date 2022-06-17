@@ -30,6 +30,7 @@ import IInput from "@/components/common/IInput";
 import DButton from "@/components/common/DButton";
 import router from "@/router";
 import { mapGetters } from "vuex";
+import store from "@/store";
 
 const wrongLorP = "неверный логин или пароль";
 const errRequiredField = "заполните поле";
@@ -66,7 +67,15 @@ export default {
         })
         .then(() => {
           if (this.getPassStatus) {
-            router.push({ name: "dashboard" });
+            store
+              .dispatch("Update" + store.getters.getRole)
+              .then(() => {
+                router.push({ name: "dashboard" });
+              })
+              .catch((err) => {
+                console.log("Update" + store.getters.getRole);
+                console.log(err);
+              });
           } else {
             router.push({ name: "profile" });
           }

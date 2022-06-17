@@ -18,7 +18,7 @@ export default {
   width: 200px;
   height: 30px;
 
-  font-weight: bold;
+  font-weight: $weight-3;
 
   color: $color-white;
   background: $color-dark-blue;

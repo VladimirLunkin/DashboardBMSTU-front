@@ -86,7 +86,7 @@ export default {
 
   /* text */
   font-style: normal;
-  font-weight: 400;
+  font-weight: $weight-2;
   font-size: 14px;
   line-height: 17px;
 

@@ -103,7 +103,7 @@ export default {
 }
 
 .navbar__home-title {
-  font-weight: 600;
+  font-weight: $weight-3;
   font-size: 24px;
 
   cursor: pointer;

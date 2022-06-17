@@ -1,7 +1,9 @@
 @import "./variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,800;1,400&display=swap');
 
 body {
   background: $background;
+  font-family: 'Nunito', sans-serif;
 }
 
 @mixin header($size, $weight) {
@@ -17,24 +19,24 @@ body {
 }
 
 h1 {
-  @include header(36px, 600);
+  @include header(36px, $weight-3);
 }
 
 h2 {
-  @include header(24px, 500);
+  @include header(24px, $weight-3);
 }
 
 h3 {
-  @include header(18px, 600);
+  @include header(18px, $weight-3);
 }
 
 h4 {
-  @include header(16px, 700);
+  @include header(16px, $weight-4);
 }
 
 a {
   font-style: italic;
-  font-weight: 400;
+  font-weight: $weight-2;
   font-size: 16px;
 
   color: $color-blue;
