@@ -34,7 +34,6 @@ export default {
   flex-direction: column;
   align-items: center;
 
-  background: $color-light-gray;
   border-radius: $r-3;
   padding: 15px;
 }

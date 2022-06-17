@@ -4,6 +4,7 @@
     <div class="navbar__home">
       <span @click="Home" class="navbar__home-title">DashboardBMSTU</span>
     </div>
+    <div class="navbar__fill"></div>
     <div class="navbar__user">
       <h3 @click="Profile" class="icon-user_circle n__u-t">{{ shortName }}</h3>
     </div>
@@ -95,7 +96,7 @@ export default {
 }
 
 .navbar__home {
-  flex: 1;
+  padding: 0 12px;
 
   display: flex;
   align-items: center;
@@ -108,8 +109,8 @@ export default {
   cursor: pointer;
 }
 
-.navbar__home-title:hover {
-  color: #b9fffb;
+.navbar__fill {
+  flex: 1;
 }
 
 .navbar__user {
@@ -132,6 +133,7 @@ export default {
   white-space: nowrap;
 }
 
+.navbar__home:hover,
 .navbar__user:hover,
 .navbar__icon-menu:hover {
   background: rgba(236, 252, 252, 0.1);

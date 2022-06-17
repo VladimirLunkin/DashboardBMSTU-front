@@ -53,7 +53,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 150px;
+  margin-top: 50px;
 
   background: $color-white;
   border-radius: $r-3;
