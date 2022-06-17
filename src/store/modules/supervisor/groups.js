@@ -107,7 +107,7 @@ export default {
     },
     clearGroups(state) {
       state.groups = [];
-      state.currentGroupId = 0;
+      state.currentGroupId = -1;
     },
   },
   actions: {},

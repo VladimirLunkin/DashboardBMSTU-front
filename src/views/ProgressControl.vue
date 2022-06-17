@@ -119,7 +119,7 @@ export default {
 @import "@/assets/variables.scss";
 
 caption {
-  margin: 24px 0;
+  margin: 24px 0 0;
   min-width: 550px;
 }
 

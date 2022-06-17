@@ -102,7 +102,7 @@ const routes = [
         }, 500);
         setTimeout(() => {
           store.commit("DownloadEnd");
-        }, 3000);
+        }, 2000);
         store
           .dispatch("UpdateCoursesTable")
           .then(() => {
@@ -136,7 +136,7 @@ const routes = [
         }, 500);
         setTimeout(() => {
           store.commit("DownloadEnd");
-        }, 3000);
+        }, 2000);
         store
           .dispatch("GetSupervisorTable")
           .then(() => {
