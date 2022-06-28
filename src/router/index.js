@@ -100,14 +100,15 @@ const routes = [
         setTimeout(() => {
           sec = 1;
         }, 500);
-        setTimeout(() => {
-          store.commit("DownloadEnd");
-        }, 2000);
         store
           .dispatch("UpdateCoursesTable")
           .then(() => {
             if (sec >= 1) {
               store.commit("DownloadEnd");
+            } else {
+              setTimeout(() => {
+                store.commit("DownloadEnd");
+              }, 300);
             }
             next();
           })
@@ -134,14 +135,15 @@ const routes = [
         setTimeout(() => {
           sec = 1;
         }, 500);
-        setTimeout(() => {
-          store.commit("DownloadEnd");
-        }, 2000);
         store
           .dispatch("GetSupervisorTable")
           .then(() => {
             if (sec >= 1) {
               store.commit("DownloadEnd");
+            } else {
+              setTimeout(() => {
+                store.commit("DownloadEnd");
+              }, 300);
             }
             next();
           })
