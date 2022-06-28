@@ -70,7 +70,7 @@
           @click="ProtectedButton"
           icon="check_all"
           class="event__protected-button"
-          >Защита</i-button
+          >Защищено</i-button
         >
       </div>
     </div>
@@ -196,27 +196,41 @@ export default {
         return;
       }
 
-      store.dispatch("SupervisorAddNewComment", {
-        studentId: this.event.studentId,
-        eventId: this.event.eventId,
-        comment: this.newComment,
-      });
+      const newComment = this.newComment;
+
+      store
+        .dispatch("SupervisorAddNewComment", {
+          studentId: this.eventInfo.studentId,
+          eventId: this.event.eventId,
+          comment: newComment,
+        })
+        .then(() => {
+          this.event.comment = newComment;
+        });
     },
     OKButton() {
       console.log("ok");
-      store.dispatch("SupervisorUpdateEventStatus", {
-        studentId: this.event.studentId,
-        eventId: this.event.eventId,
-        status: 4,
-      });
+      store
+        .dispatch("SupervisorUpdateEventStatus", {
+          studentId: this.eventInfo.studentId,
+          eventId: this.event.eventId,
+          status: 4,
+        })
+        .then(() => {
+          this.event.status = 4;
+        });
     },
     ProtectedButton() {
       console.log("ttt");
-      store.dispatch("SupervisorUpdateEventStatus", {
-        studentId: this.event.studentId,
-        eventId: this.event.eventId,
-        status: 5,
-      });
+      store
+        .dispatch("SupervisorUpdateEventStatus", {
+          studentId: this.eventInfo.studentId,
+          eventId: this.event.eventId,
+          status: 5,
+        })
+        .then(() => {
+          this.event.status = 5;
+        });
     },
     getDeadlineDays(dateStr) {
       const date = new Date(dateStr);
