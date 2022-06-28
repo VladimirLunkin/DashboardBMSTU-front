@@ -47,6 +47,17 @@
           <h4>Комментарий</h4>
           <div>{{ event.comment }}</div>
         </div>
+        <div v-if="isOKButton" class="event__new_comment">
+          <textarea
+            v-model="newComment"
+            rows="2"
+            placeholder="Оставить комментарий"
+            class="event__new_comment_field"
+          />
+          <d-button class="event__new_comment_button" @click="SendComment"
+            >Отправить</d-button
+          >
+        </div>
         <i-button
           v-if="isOKButton"
           @click="OKButton"
@@ -71,15 +82,17 @@ import { mapGetters } from "vuex";
 import IButton from "@/components/common/IButton";
 import { apiURL } from "@/api/const";
 import store from "@/store/index";
+import DButton from "@/components/common/DButton";
 
 export default {
   // name: "EventInfo",
   props: {
     modelValue: Object,
   },
-  components: { IButton },
+  components: { DButton, IButton },
   data() {
     return {
+      newComment: "",
       event: {},
     };
   },
@@ -178,6 +191,17 @@ export default {
     Close() {
       this.eventInfo.isModalVisible = false;
     },
+    SendComment() {
+      if (this.newComment === "") {
+        return;
+      }
+
+      store.dispatch("SupervisorAddNewComment", {
+        studentId: this.event.studentId,
+        eventId: this.event.eventId,
+        comment: this.newComment,
+      });
+    },
     OKButton() {
       console.log("ok");
       store.dispatch("SupervisorUpdateEventStatus", {
@@ -209,6 +233,7 @@ export default {
         this.eventInfo.studentId,
         this.eventInfo.eventId
       );
+      console.log(this.event);
     },
   },
   mounted() {
@@ -265,9 +290,29 @@ export default {
 
 .event__table,
 .event__description,
-.event__upload-files {
+.event__upload-files,
+.event__new_comment {
   margin: 20px 12px;
   text-align: left;
+}
+
+.event__new_comment {
+  display: flex;
+  flex-direction: column;
+  background: $color-light-gray;
+  border-radius: 12px;
+}
+
+.event__new_comment_field {
+  background: $color-light-gray;
+  resize: vertical;
+  margin: 12px 6px;
+  padding: 3px 6px;
+}
+
+.event__new_comment_button {
+  place-self: center;
+  margin-bottom: 12px;
 }
 
 td {

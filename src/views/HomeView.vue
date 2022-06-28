@@ -1,21 +1,33 @@
 <template>
   <div class="home">
     sedwed
-    <my-loader></my-loader>
-    <div>wsefdwed</div>
+    <div @click="OpenEventInfo">wsefdwed</div>
+    <event-info-supervisor v-model="eventInfo"></event-info-supervisor>
   </div>
 </template>
 
 <script>
-import MyLoader from "@/components/Loader";
+import EventInfoSupervisor from "@/components/EventInfoSupervisor";
 
 export default {
   name: "HomeView",
   data() {
-    return {};
+    return {
+      eventInfo: {
+        isModalVisible: false,
+        studentId: 0,
+        eventId: 0,
+      },
+    };
   },
   components: {
-    MyLoader,
+    EventInfoSupervisor,
+  },
+  methods: {
+    OpenEventInfo() {
+      this.eventInfo = { studentId: 0, eventId: 0 };
+      this.eventInfo.isModalVisible = true;
+    },
   },
 };
 </script>

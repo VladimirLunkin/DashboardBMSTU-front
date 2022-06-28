@@ -10,12 +10,12 @@
 import NavBar from "@/components/Navbar";
 import { mapGetters } from "vuex";
 import MyLoader from "@/components/Loader";
-import router from "@/router";
+// import router from "@/router";
 
 export default {
-  created() {
-    router.push({ name: "profile" });
-  },
+  // created() {
+  //   router.push({ name: "profile" });
+  // },
   components: {
     MyLoader,
     NavBar,

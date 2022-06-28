@@ -27,6 +27,10 @@ export default function (instance) {
       setCSRF();
       return instance.get(`supervisor/student/${studentId}/course/${courseId}`);
     },
+    addNewComment(eventId, payload) {
+      setCSRF();
+      return instance.post(`supervisor/event/${eventId}/comment`, payload);
+    },
     updateEventStatus(eventId, payload) {
       setCSRF();
       return instance.put(`supervisor/event/${eventId}/status`, payload);
