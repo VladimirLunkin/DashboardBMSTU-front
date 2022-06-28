@@ -1,3 +1,5 @@
+import api from "@/api";
+
 export default {
   state: {
     eventsCommon: [],
@@ -52,10 +54,35 @@ export default {
     setSupervisorStudentEvents(state, { studentId, events }) {
       state.events[studentId] = events;
     },
+    setSupervisorEventStatus(state, { studentId, eventId, status }) {
+      let i = 0;
+      while (i < state.events[studentId].length) {
+        if (state.events[studentId][i].eventId === eventId) {
+          state.events[studentId][i] = status;
+          return;
+        }
+        i++;
+      }
+    },
     clearEvents(state) {
       state.eventsCommon = [];
       state.events = {};
     },
   },
-  action: {},
+  actions: {
+    async SupervisorUpdateEventStatus(ctx, { studentId, eventId, status }) {
+      return api.supervisor
+        .updateEventStatus(eventId, { status })
+        .then((resp) => {
+          if (resp.status !== 200) {
+            throw resp;
+          }
+          ctx.commit("setSupervisorEventStatus", {
+            studentId,
+            eventId,
+            status,
+          });
+        });
+    },
+  },
 };

@@ -27,5 +27,9 @@ export default function (instance) {
       setCSRF();
       return instance.get(`supervisor/student/${studentId}/course/${courseId}`);
     },
+    updateEventStatus(eventId, payload) {
+      setCSRF();
+      return instance.put(`supervisor/event/${eventId}/status`, payload);
+    },
   };
 }

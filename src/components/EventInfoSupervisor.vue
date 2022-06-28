@@ -54,6 +54,13 @@
           class="event__ok-button"
           >Принять</i-button
         >
+        <i-button
+          v-if="isProtectedButton"
+          @click="ProtectedButton"
+          icon="check_all"
+          class="event__protected-button"
+          >Защита</i-button
+        >
       </div>
     </div>
   </div>
@@ -63,6 +70,7 @@
 import { mapGetters } from "vuex";
 import IButton from "@/components/common/IButton";
 import { apiURL } from "@/api/const";
+import store from "@/store/index";
 
 export default {
   // name: "EventInfo",
@@ -152,6 +160,9 @@ export default {
     isOKButton() {
       return this.event.status === 2;
     },
+    isProtectedButton() {
+      return this.event.status === 4;
+    },
   },
   methods: {
     supShortName() {
@@ -169,6 +180,19 @@ export default {
     },
     OKButton() {
       console.log("ok");
+      store.dispatch("SupervisorUpdateEventStatus", {
+        studentId: this.event.studentId,
+        eventId: this.event.eventId,
+        status: 4,
+      });
+    },
+    ProtectedButton() {
+      console.log("ttt");
+      store.dispatch("SupervisorUpdateEventStatus", {
+        studentId: this.event.studentId,
+        eventId: this.event.eventId,
+        status: 5,
+      });
     },
     getDeadlineDays(dateStr) {
       const date = new Date(dateStr);
@@ -264,11 +288,20 @@ td {
 
 .event__ok-button {
   margin-bottom: 20px;
-  background: $color-green;
+  background: $color-light-green;
 }
 
 .event__ok-button:active {
-  background: $color-light-green;
+  background: rgba(105, 182, 38, 0.6);
+}
+
+.event__protected-button {
+  margin-bottom: 20px;
+  background: $color-green;
+}
+
+.event__protected-button:active {
+  background: rgba(0, 145, 46, 0.6);
 }
 
 .event__files-list {
