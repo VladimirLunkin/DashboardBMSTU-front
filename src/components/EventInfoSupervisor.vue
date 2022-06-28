@@ -206,6 +206,8 @@ export default {
         })
         .then(() => {
           this.event.comment = newComment;
+          this.event.status = 3;
+          this.newComment = "";
         });
     },
     OKButton() {

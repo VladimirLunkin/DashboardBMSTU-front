@@ -29,7 +29,27 @@ export default {
   },
   mutations: {
     setSupervisorStudents(state, students) {
-      state.students = students;
+      state.students = students.sort(function (a, b) {
+        if (a.lastName > b.lastName) {
+          return 1;
+        }
+        if (a.lastName < b.lastName) {
+          return -1;
+        }
+        if (a.firstName > b.firstName) {
+          return 1;
+        }
+        if (a.firstName < b.firstName) {
+          return -1;
+        }
+        if (a.middleName > b.middleName) {
+          return 1;
+        }
+        if (a.middleName < b.middleName) {
+          return -1;
+        }
+        return 0;
+      });
     },
     clearSupervisorStudents(state) {
       state.students = [];

@@ -75,6 +75,7 @@ export default {
       while (i < state.events[studentId].length) {
         if (state.events[studentId][i].eventId === eventId) {
           state.events[studentId][i].comment = comment;
+          state.events[studentId][i].status = 3;
           return;
         }
         i++;
@@ -82,8 +83,6 @@ export default {
     },
     setSupervisorEventStatus(state, { studentId, eventId, status }) {
       let i = 0;
-      console.log(studentId, eventId, status);
-      console.log(state.events);
       while (i < state.events[studentId].length) {
         if (state.events[studentId][i].eventId === eventId) {
           state.events[studentId][i].status = status;
